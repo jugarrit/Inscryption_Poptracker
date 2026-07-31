@@ -29,7 +29,13 @@ Options are read from slot data on connect, so the settings panel fills itself i
 seed does not generate — for example the Act 3 shortcut checks when Randomize Shortcuts is
 `vanilla` — are hidden rather than shown as unreachable.
 
-Some of the new item and option icons are generated placeholders rather than game art.
+The Act 1 node and challenge item icons are extracted from the game's own assets — node art
+(`animated_buildtotemnode`, `animated_mushrooms`, …) composited onto the map's `paper_darker`
+parchment because it is black ink and would be invisible on a dark background, and the Kaycee's Mod
+`ascensionicon_*` icons used as-is since they are white on transparent. The mapping from AP item to
+game asset is taken from the mod's `ReplaceLockedNodeIcon` and `SetChallengesOnStartup` patches.
+The act unlock icons come from the mod's own `Assets Sources`. The remaining new item and option
+icons are generated placeholders.
 
 ### Keeping the logic in sync with the apworld
 
