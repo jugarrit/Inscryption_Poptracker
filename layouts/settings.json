@@ -6,19 +6,33 @@
             {
                 "type": "group",
                 "dock": "top",
-                "header": "Settings",
+                "header": "Acts",
                 "content": [
                     {
-                        "type": "item",
-                        "item": "goal",
+                        "type": "itemgrid",
                         "h_alignment": "left",
-                        "v_alignment": "top"
-                    },
+                        "item_margin": "2,2",
+                        "item_size": "64,64",
+                        "rows": [
+                            ["act1on", "act2on", "act3on", "actunlocks", "goal"]
+                        ]
+                    }
+                ]
+            },
+            {
+                "type": "group",
+                "dock": "top",
+                "header": "Randomization",
+                "content": [
                     {
-                        "type": "item",
-                        "item": "epitaphtype",
+                        "type": "itemgrid",
                         "h_alignment": "left",
-                        "v_alignment": "top"
+                        "item_margin": "2,2",
+                        "item_size": "64,64",
+                        "rows": [
+                            ["paintingbalance", "randnodes", "randchallenges", "act2bridge", "epitaphtype"],
+                            ["randhammer", "act3overhaul", "randshortcuts", "randvessel"]
+                        ]
                     }
                 ]
             }

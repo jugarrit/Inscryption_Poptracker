@@ -1,9 +1,9 @@
 {
-    "name": "Inscryption Archipelago Randomizer",
-	"game_name": "Inscryption",
+    "name": "Inscryption Archipelago Randomizer (Beta)",
+	"game_name": "Inscryption Beta",
     "author": "DrBibop",
     "package_uid": "InscryptionTracker",
-    "package_version": "1.0",
+    "package_version": "2.0",
     "platform": "PC",
     "variants": {
         "map_tracker": {
@@ -16,5 +16,5 @@
 		}
     },
     "min_poptracker_version": "0.23.1",
-    "target_poptracker_version": "0.23.1"
+    "target_poptracker_version": "0.25.0"
 }

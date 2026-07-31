@@ -246,5 +246,179 @@
 		"type": "consumable",
 		"codes": "cardpack",
 		"img": "images/items/cardpack.png"
+	},
+    {
+		"name": "Woodcarver Node",
+		"type": "toggle",
+		"codes": "woodcarvernode",
+		"img": "images/items/woodcarvernode.png"
+	},
+    {
+		"name": "Mycologists Node",
+		"type": "toggle",
+		"codes": "myconode",
+		"img": "images/items/myconode.png"
+	},
+    {
+		"name": "Bone Altar Node",
+		"type": "toggle",
+		"codes": "bonealtarnode",
+		"img": "images/items/bonealtarnode.png"
+	},
+    {
+		"name": "Sacrifice Stones Node",
+		"type": "toggle",
+		"codes": "sacstonesnode",
+		"img": "images/items/sacstonesnode.png"
+	},
+    {
+		"name": "Backpack Node",
+		"type": "toggle",
+		"codes": "backpacknode",
+		"img": "images/items/backpacknode.png"
+	},
+    {
+		"name": "Campfire Node",
+		"type": "toggle",
+		"codes": "campfirenode",
+		"img": "images/items/campfirenode.png"
+	},
+    {
+		"name": "Goobert Node",
+		"type": "toggle",
+		"codes": "goobertnode",
+		"img": "images/items/goobertnode.png"
+	},
+    {
+		"name": "Smaller Backpack Challenge",
+		"type": "toggle",
+		"codes": "smallerbackpack",
+		"img": "images/items/smallerbackpack.png"
+	},
+    {
+		"name": "Pricey Pelts Challenge",
+		"type": "toggle",
+		"codes": "priceypelts",
+		"img": "images/items/priceypelts.png"
+	},
+    {
+		"name": "Boss Totems Challenge",
+		"type": "toggle",
+		"codes": "bosstotems",
+		"img": "images/items/bosstotems.png"
+	},
+    {
+		"name": "All Totem Battles Challenge",
+		"type": "toggle",
+		"codes": "alltotembattles",
+		"img": "images/items/alltotembattles.png"
+	},
+    {
+		"name": "Tipped Scales Challenge",
+		"type": "consumable",
+		"codes": "tippedscales",
+		"img": "images/items/tippedscales.png",
+		"max_quantity": 3
+	},
+    {
+		"name": "More Difficult Challenge",
+		"type": "consumable",
+		"codes": "moredifficult",
+		"img": "images/items/moredifficult.png",
+		"max_quantity": 2
+	},
+    {
+		"name": "Progressive Candle",
+		"type": "consumable",
+		"codes": "progcandle",
+		"img": "images/items/progcandle.png",
+		"max_quantity": 2
+	},
+    {
+		"name": "Progressive Squirrel",
+		"type": "consumable",
+		"codes": "progsquirrel",
+		"img": "images/items/progsquirrel.png",
+		"max_quantity": 2
+	},
+    {
+		"name": "Progressive Grizzlies",
+		"type": "consumable",
+		"codes": "proggrizzlies",
+		"img": "images/items/proggrizzlies.png",
+		"max_quantity": 3
+	},
+    {
+		"name": "Act 2 Bridge Repair",
+		"type": "toggle",
+		"codes": "act2bridgerepair",
+		"img": "images/items/act2bridgerepair.png"
+	},
+    {
+		"name": "Act 3 Bridge Repair",
+		"type": "toggle",
+		"codes": "act3bridgerepair",
+		"img": "images/items/act3bridgerepair.png"
+	},
+    {
+		"name": "Resplendent Bastion Gate",
+		"type": "toggle",
+		"codes": "bastiongate",
+		"img": "images/items/bastiongate.png"
+	},
+    {
+		"name": "Foul Backwater Shortcut",
+		"type": "toggle",
+		"codes": "foulshortcut",
+		"img": "images/items/foulshortcut.png"
+	},
+    {
+		"name": "Filthy Corpse World Shortcut",
+		"type": "toggle",
+		"codes": "filthyshortcut",
+		"img": "images/items/filthyshortcut.png"
+	},
+    {
+		"name": "Gaudy Gem Land Shortcut",
+		"type": "toggle",
+		"codes": "gaudyshortcut",
+		"img": "images/items/gaudyshortcut.png"
+	},
+    {
+		"name": "Vessel Upgrade",
+		"type": "consumable",
+		"codes": "vesselupgrade",
+		"img": "images/items/vesselupgrade.png",
+		"max_quantity": 3
+	},
+    {
+		"name": "Conduit Upgrade",
+		"type": "toggle",
+		"codes": "conduitupgrade",
+		"img": "images/items/conduitupgrade.png"
+	},
+    {
+		"name": "Hammer",
+		"type": "toggle",
+		"codes": "hammer",
+		"img": "images/items/hammer.png"
+	},
+    {
+		"name": "Act 1",
+		"type": "toggle",
+		"codes": "act1unlock",
+		"img": "images/items/act1unlock.png"
+	},
+    {
+		"name": "Act 2",
+		"type": "toggle",
+		"codes": "act2unlock",
+		"img": "images/items/act2unlock.png"
+	},
+    {
+		"name": "Act 3",
+		"type": "toggle",
+		"codes": "act3unlock",
+		"img": "images/items/act3unlock.png"
 	}
 ]

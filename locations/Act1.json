@@ -1,48 +1,235 @@
 [
 	{
 		"name": "Act 1",
-		"access_rules":
-		[
-			"$update_options"
+		"access_rules": [
+			"$act1_access"
+		],
+		"visibility_rules": [
+			"$vis_act1"
 		],
 		"chest_unopened_img": "images/locations/card_hidden_act1.png",
-		"overlay_background": "#000000",
 		"chest_opened_img": "images/locations/card_revealed_act1.png",
+		"overlay_background": "#000000",
 		"color": "#FFFFFF",
-		"children":
-		[
+		"children": [
 			{
 				"name": "Game Table",
-				"map_locations":
-				[
+				"map_locations": [
 					{
 						"map": "Act 1",
 						"x": 300,
 						"y": 700
 					}
 				],
-				"sections":
-				[
+				"sections": [
+					{
+						"name": "Woodlands Battle 1",
+						"visibility_rules": [
+							"$vis_a1_battles"
+						],
+						"item_count": 1
+					},
+					{
+						"name": "Woodlands Battle 2",
+						"access_rules": [
+							"$a1_woodlands_later"
+						],
+						"visibility_rules": [
+							"$vis_a1_battles"
+						],
+						"item_count": 1
+					},
+					{
+						"name": "Woodlands Battle 3",
+						"access_rules": [
+							"$a1_woodlands_later"
+						],
+						"visibility_rules": [
+							"$vis_a1_battles"
+						],
+						"item_count": 1
+					},
+					{
+						"name": "Woodlands Consumable Check 1",
+						"access_rules": [
+							"$a1_woodlands_consumable"
+						],
+						"visibility_rules": [
+							"$vis_a1_consumables"
+						],
+						"item_count": 1
+					},
+					{
+						"name": "Woodlands Consumable Check 2",
+						"access_rules": [
+							"$a1_woodlands_consumable"
+						],
+						"visibility_rules": [
+							"$vis_a1_consumables"
+						],
+						"item_count": 1
+					},
 					{
 						"name": "Boss Prospector",
+						"access_rules": [
+							"$a1_prospector"
+						],
+						"item_count": 1
+					},
+					{
+						"name": "Wetlands Battle 1",
+						"access_rules": [
+							"$a1_wetlands"
+						],
+						"visibility_rules": [
+							"$vis_a1_battles"
+						],
+						"item_count": 1
+					},
+					{
+						"name": "Wetlands Battle 2",
+						"access_rules": [
+							"$a1_wetlands"
+						],
+						"visibility_rules": [
+							"$vis_a1_battles"
+						],
+						"item_count": 1
+					},
+					{
+						"name": "Wetlands Battle 3",
+						"access_rules": [
+							"$a1_wetlands"
+						],
+						"visibility_rules": [
+							"$vis_a1_battles"
+						],
+						"item_count": 1
+					},
+					{
+						"name": "Wetlands Consumable Check 1",
+						"access_rules": [
+							"$a1_wetlands_consumable"
+						],
+						"visibility_rules": [
+							"$vis_a1_consumables"
+						],
+						"item_count": 1
+					},
+					{
+						"name": "Wetlands Consumable Check 2",
+						"access_rules": [
+							"$a1_wetlands_consumable"
+						],
+						"visibility_rules": [
+							"$vis_a1_consumables"
+						],
 						"item_count": 1
 					},
 					{
 						"name": "Boss Angler",
+						"access_rules": [
+							"$a1_angler"
+						],
+						"item_count": 1
+					},
+					{
+						"name": "Snow Line Battle 1",
+						"access_rules": [
+							"$a1_snow_line"
+						],
+						"visibility_rules": [
+							"$vis_a1_battles"
+						],
+						"item_count": 1
+					},
+					{
+						"name": "Snow Line Battle 2",
+						"access_rules": [
+							"$a1_snow_line"
+						],
+						"visibility_rules": [
+							"$vis_a1_battles"
+						],
+						"item_count": 1
+					},
+					{
+						"name": "Snow Line Battle 3",
+						"access_rules": [
+							"$a1_snow_line"
+						],
+						"visibility_rules": [
+							"$vis_a1_battles"
+						],
+						"item_count": 1
+					},
+					{
+						"name": "Snow Line Consumable Check 1",
+						"access_rules": [
+							"$a1_snow_line_consumable"
+						],
+						"visibility_rules": [
+							"$vis_a1_consumables"
+						],
+						"item_count": 1
+					},
+					{
+						"name": "Snow Line Consumable Check 2",
+						"access_rules": [
+							"$a1_snow_line_consumable"
+						],
+						"visibility_rules": [
+							"$vis_a1_consumables"
+						],
 						"item_count": 1
 					},
 					{
 						"name": "Boss Trapper",
+						"access_rules": [
+							"$a1_trapper"
+						],
 						"item_count": 1
 					},
 					{
 						"name": "Boss Leshy",
+						"access_rules": [
+							"$a1_leshy"
+						],
+						"item_count": 1
+					},
+					{
+						"name": "Trader Rabbit Pelt",
+						"access_rules": [
+							"$a1_woodlands_later"
+						],
+						"visibility_rules": [
+							"$vis_a1_challenge_checks"
+						],
+						"item_count": 1
+					},
+					{
+						"name": "Trader Wolf Pelt",
+						"access_rules": [
+							"$a1_wolf_pelt"
+						],
+						"visibility_rules": [
+							"$vis_a1_challenge_checks"
+						],
+						"item_count": 1
+					},
+					{
+						"name": "Trader Golden Pelt",
+						"access_rules": [
+							"$a1_golden_pelt"
+						],
+						"visibility_rules": [
+							"$vis_a1_challenge_checks"
+						],
 						"item_count": 1
 					},
 					{
 						"name": "Magnificus Eye",
-						"access_rules":
-						[
+						"access_rules": [
 							"$has|dagger"
 						],
 						"item_count": 1
@@ -50,17 +237,94 @@
 				]
 			},
 			{
+				"name": "New Game Button",
+				"map_locations": [
+					{
+						"map": "Act 1",
+						"x": 1378,
+						"y": 720
+					}
+				],
+				"visibility_rules": [
+					"$vis_a1_challenge_checks"
+				],
+				"sections": [
+					{
+						"name": "Check",
+						"access_rules": [
+							"$beat_act1"
+						],
+						"item_count": 1
+					}
+				]
+			},
+			{
+				"name": "Free Teeth Skull",
+				"map_locations": [
+					{
+						"map": "Act 1",
+						"x": 495,
+						"y": 105
+					}
+				],
+				"visibility_rules": [
+					"$vis_a1_challenge_checks"
+				],
+				"sections": [
+					{
+						"name": "Check",
+						"item_count": 1
+					}
+				]
+			},
+			{
+				"name": "Figurines",
+				"map_locations": [
+					{
+						"map": "Act 1",
+						"x": 1345,
+						"y": 900
+					}
+				],
+				"visibility_rules": [
+					"$vis_a1_challenge_checks"
+				],
+				"sections": [
+					{
+						"name": "Tarot Card",
+						"item_count": 1
+					}
+				]
+			},
+			{
+				"name": "Rulebook",
+				"map_locations": [
+					{
+						"map": "Act 1",
+						"x": 32,
+						"y": 1135
+					}
+				],
+				"visibility_rules": [
+					"$vis_a1_challenge_checks"
+				],
+				"sections": [
+					{
+						"name": "Card",
+						"item_count": 1
+					}
+				]
+			},
+			{
 				"name": "Safe",
-				"map_locations":
-				[
+				"map_locations": [
 					{
 						"map": "Act 1",
 						"x": 1345,
 						"y": 1015
 					}
 				],
-				"sections":
-				[
+				"sections": [
 					{
 						"name": "Card",
 						"item_count": 1
@@ -69,68 +333,62 @@
 			},
 			{
 				"name": "Clock",
-				"map_locations":
-				[
+				"map_locations": [
 					{
 						"map": "Act 1",
 						"x": 623,
 						"y": 1255
 					}
 				],
-				"sections":
-				[
+				"sections": [
 					{
 						"name": "Upper Compartment",
+						"access_rules": [
+							"$a1_trapper"
+						],
 						"item_count": 1
 					},
 					{
 						"name": "Main Compartment",
-						"item_count": 1,
-						"access_rules":
-						[
+						"access_rules": [
 							"$has|magnificuseye"
-						]
+						],
+						"item_count": 1
 					}
 				]
 			},
 			{
 				"name": "Dagger",
-				"map_locations":
-				[
+				"map_locations": [
 					{
 						"map": "Act 1",
 						"x": 1317,
 						"y": 315
 					}
 				],
-				"sections":
-				[
+				"sections": [
 					{
 						"name": "Card",
-						"item_count": 1,
-						"access_rules":
-						[
+						"access_rules": [
 							"$has|cagedwolf"
-						]
-					},
+						],
+						"item_count": 1
+					}
 				]
 			},
 			{
 				"name": "Wardrobe",
-				"map_locations":
-				[
+				"map_locations": [
 					{
 						"map": "Act 1",
 						"x": 986,
 						"y": 55
 					}
 				],
-				"access_rules":
-				[
+				"access_rules": [
 					"$has|wardrobekey"
 				],
-				"sections":
-				[
+				"sections": [
 					{
 						"name": "Drawer 1",
 						"item_count": 1
@@ -151,42 +409,47 @@
 			},
 			{
 				"name": "Oil Painting",
-				"map_locations":
-				[
+				"map_locations": [
 					{
 						"map": "Act 1",
 						"x": 986,
 						"y": 1278
 					}
 				],
-				"sections":
-				[
+				"sections": [
 					{
 						"name": "Painting 1",
+						"access_rules": [
+							"$a1_painting_1"
+						],
 						"item_count": 1
 					},
 					{
 						"name": "Painting 2",
+						"access_rules": [
+							"$a1_painting_2"
+						],
 						"item_count": 1
 					},
 					{
 						"name": "Painting 3",
+						"access_rules": [
+							"$a1_painting_3"
+						],
 						"item_count": 1
 					}
 				]
 			},
 			{
 				"name": "Wall Candles",
-				"map_locations":
-				[
+				"map_locations": [
 					{
 						"map": "Act 1",
 						"x": 764,
 						"y": 27
 					}
 				],
-				"sections":
-				[
+				"sections": [
 					{
 						"name": "Greater Smoke",
 						"item_count": 1

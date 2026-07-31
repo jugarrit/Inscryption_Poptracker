@@ -9,6 +9,8 @@ Tracker:AddItems("items/items.json")
 --LOAD OPTIONS
 Tracker:AddItems("options/options.json")
 
+init_options()
+
 -- Open Maps, Then Layouts, Then Locations
 if (string.find(Tracker.ActiveVariantUID, "items_only")) then
     Tracker:AddLayouts("layouts/items_only.json")

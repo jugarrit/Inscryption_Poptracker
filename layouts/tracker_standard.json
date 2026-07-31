@@ -10,7 +10,11 @@
 			["stinkbug", "stuntedwolf", "skink", "ant"],
 			["greatersmoke", "cagedwolf", "dagger", "magnificuseye"],
 			["wardrobekey", "hook", "squirreltotem", "ring"],
-			["paintingclover", "extracandle", "beefigurine", "filmroll"]
+			["paintingclover", "extracandle", "beefigurine", "filmroll"],
+			["woodcarvernode", "myconode", "bonealtarnode", "sacstonesnode"],
+			["backpacknode", "campfirenode", "goobertnode", "smallerbackpack"],
+			["priceypelts", "bosstotems", "alltotembattles", "tippedscales"],
+			["moredifficult", "progcandle", "progsquirrel", "proggrizzlies"]
 		]
 	},
 	
@@ -24,8 +28,7 @@
 		[
 			["kraken", "drownedsoul", "salmon", "horn"],
 			["camera", "meat", "epitaph", "monocle"],
-			["femur", "obol", "dockclover"]
-			
+			["femur", "obol", "dockclover", "act2bridgerepair"]
 		]
 	},
 	
@@ -39,11 +42,24 @@
 		[
 			["lonelywizbot", "fishbot", "ourobot", "holopelt"],
 			["inspectobattery", "quill", "gemsmodule", "bonelordkey"],
-			["extrabattery", "nanoarmor", "bombremote", "mycokey"]
-			
+			["extrabattery", "nanoarmor", "bombremote", "mycokey"],
+			["act3bridgerepair", "bastiongate", "vesselupgrade", "conduitupgrade"],
+			["foulshortcut", "filthyshortcut", "gaudyshortcut"]
 		]
 	},
-	
+
+	"shared_grid":
+	{
+		"type": "itemgrid",
+		"h_alignment": "left",
+		"item_margin": "2,2",
+		"item_size": "64,64",
+		"rows":
+		[
+			["hammer", "act1unlock", "act2unlock", "act3unlock"]
+		]
+	},
+
 	"options_grid":
 	{
 		"type": "itemgrid",
@@ -52,7 +68,10 @@
 		"item_size": "64,64",
 		"rows":
 		[
-			["goal", "epitaphtype"]
+			["act1on", "act2on", "act3on", "actunlocks"],
+			["goal", "epitaphtype", "paintingbalance", "randnodes"],
+			["randchallenges", "act2bridge", "act3overhaul", "randhammer"],
+			["randshortcuts", "randvessel"]
 		]
 	},
 	
@@ -108,16 +127,33 @@
 						{
 							"type": "group",
 							"header": "Act 3",
-							"content": 
+							"content":
 							{
 								"type": "array",
 								"orientation": "horizontal",
 								"margin": "0,0",
-								"content": 
+								"content":
 								[
 									{
 										"type": "layout",
 										"key": "act3_grid"
+									}
+								]
+							}
+						},
+						{
+							"type": "group",
+							"header": "Shared",
+							"content":
+							{
+								"type": "array",
+								"orientation": "horizontal",
+								"margin": "0,0",
+								"content":
+								[
+									{
+										"type": "layout",
+										"key": "shared_grid"
 									}
 								]
 							}
@@ -249,16 +285,33 @@
 								{
 									"type": "group",
 									"header": "Act 3",
-									"content": 
+									"content":
 									{
 										"type": "array",
 										"orientation": "vertical",
 										"margin": "0,0",
-										"content": 
+										"content":
 										[
 											{
 												"type": "layout",
 												"key": "act3_grid"
+											}
+										]
+									}
+								},
+								{
+									"type": "group",
+									"header": "Shared",
+									"content":
+									{
+										"type": "array",
+										"orientation": "vertical",
+										"margin": "0,0",
+										"content":
+										[
+											{
+												"type": "layout",
+												"key": "shared_grid"
 											}
 										]
 									}

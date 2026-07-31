@@ -80,39 +80,30 @@ function onClear(slot_data)
         end
     end
 	
-	SLOT_DATA = slot_data
-    Tracker:FindObjectForCode("goal").CurrentStage = 0
-	Tracker:FindObjectForCode("epitaphtype").CurrentStage = 0
-    
+	SLOT_DATA = slot_data or {}
+
     for k, v in pairs(OPTION_MAPPING) do
+        local code, item_type = v[1], v[2]
         local value = SLOT_DATA[k]
-        if AUTOTRACKER_ENABLE_DEBUG_LOGGING then
-            print(string.format("onClear: loading setting data %s of value %s into item %s", k, value, Tracker:FindObjectForCode(v)))
+        if value == nil then
+            value = OPTION_DEFAULTS[code] or 0
         end
-        if v == "goal" then
-            if value == 0 then
-                Tracker:FindObjectForCode(v).CurrentStage = 0
-            elseif value == 1 then
-                Tracker:FindObjectForCode(v).CurrentStage = 1
-            elseif value == 2 then
-                Tracker:FindObjectForCode(v).CurrentStage = 2
-            elseif AUTOTRACKER_ENABLE_DEBUG_LOGGING then
-                print(string.format("onClear: did not recognize goal %s", value))
+        if AUTOTRACKER_ENABLE_DEBUG_LOGGING then
+            print(string.format("onClear: loading setting %s of value %s into item %s", k, tostring(value), code))
+        end
+        local obj = Tracker:FindObjectForCode(code)
+        if obj then
+            if item_type == "toggle" then
+                obj.Active = value == true or tonumber(value) == 1
+            else
+                obj.CurrentStage = math.floor(tonumber(value) or 0)
             end
-        elseif v == "epitaphtype" then
-            if value == 0 then
-                Tracker:FindObjectForCode(v).CurrentStage = 0
-            elseif value == 1 then
-                Tracker:FindObjectForCode(v).CurrentStage = 1
-            elseif value == 2 then
-                Tracker:FindObjectForCode(v).CurrentStage = 2
-            elseif AUTOTRACKER_ENABLE_DEBUG_LOGGING then
-                print(string.format("onClear: did not recognize epitaph_pieces_randomization %s", value))
-            end
-        else
-            print("setting", k, "not recognized")    
+        elseif AUTOTRACKER_ENABLE_DEBUG_LOGGING then
+            print(string.format("onClear: could not find object for code %s", code))
         end
     end
+
+    update_options()
 end
 
 function onItem(index, item_id, item_name)
@@ -161,8 +152,11 @@ function onLocation(location_id, location_name)
         print(string.format("called onLocation: %s, %s", location_id, location_name))
     end
     local v = LOCATION_MAPPING[location_id]
-    if not v and AUTOTRACKER_ENABLE_DEBUG_LOGGING then
-        print(string.format("onLocation: could not find location mapping for id %s", location_id))
+    if not v then
+        if AUTOTRACKER_ENABLE_DEBUG_LOGGING then
+            print(string.format("onLocation: could not find location mapping for id %s", location_id))
+        end
+        return
     end
     if not v[1] then
         return
