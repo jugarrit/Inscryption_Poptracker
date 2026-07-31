@@ -1,105 +1,53 @@
 {
-	"act1_grid":
-	{
-		"type": "itemgrid",
-		"h_alignment": "left",
-		"item_margin": "2,2",
-		"item_size": "64,64",
-		"rows":
-		[
-			["stinkbug", "stuntedwolf", "skink", "ant"],
-			["greatersmoke", "cagedwolf", "dagger", "magnificuseye"],
-			["wardrobekey", "hook", "squirreltotem", "ring"],
-			["paintingclover", "extracandle", "beefigurine", "filmroll"],
-			["woodcarvernode", "myconode", "bonealtarnode", "sacstonesnode"],
-			["backpacknode", "campfirenode", "goobertnode", "smallerbackpack"],
-			["priceypelts", "bosstotems", "alltotembattles", "tippedscales"],
-			["moredifficult", "progcandle", "progsquirrel", "proggrizzlies"]
-		]
-	},
-	
-	"act2_grid":
-	{
-		"type": "itemgrid",
-		"h_alignment": "left",
-		"item_margin": "2,2",
-		"item_size": "64,64",
-		"rows":
-		[
-			["kraken", "drownedsoul", "salmon", "horn"],
-			["camera", "meat", "epitaph", "monocle"],
-			["femur", "obol", "dockclover", "act2bridgerepair"]
-		]
-	},
-	
-	"act3_grid":
-	{
-		"type": "itemgrid",
-		"h_alignment": "left",
-		"item_margin": "2,2",
-		"item_size": "64,64",
-		"rows":
-		[
-			["lonelywizbot", "fishbot", "ourobot", "holopelt"],
-			["inspectobattery", "quill", "gemsmodule", "bonelordkey"],
-			["extrabattery", "nanoarmor", "bombremote", "mycokey"],
-			["act3bridgerepair", "bastiongate", "vesselupgrade", "conduitupgrade"],
-			["foulshortcut", "filthyshortcut", "gaudyshortcut"]
-		]
-	},
-
-	"shared_grid":
-	{
-		"type": "itemgrid",
-		"h_alignment": "left",
-		"item_margin": "2,2",
-		"item_size": "64,64",
-		"rows":
-		[
-			["hammer", "act1unlock", "act2unlock", "act3unlock"]
-		]
-	},
-
-	"options_grid":
-	{
+	"options_grid": {
 		"type": "itemgrid",
 		"h_alignment": "right",
 		"item_margin": "2,2",
 		"item_size": "64,64",
-		"rows":
-		[
-			["act1on", "act2on", "act3on", "actunlocks"],
-			["goal", "epitaphtype", "paintingbalance", "randnodes"],
-			["randchallenges", "act2bridge", "act3overhaul", "randhammer"],
-			["randshortcuts", "randvessel"]
+		"rows": [
+			[
+				"act1on",
+				"act2on",
+				"act3on",
+				"actunlocks"
+			],
+			[
+				"goal",
+				"epitaphtype",
+				"paintingbalance",
+				"randnodes"
+			],
+			[
+				"randchallenges",
+				"act2bridge",
+				"act3overhaul",
+				"randhammer"
+			],
+			[
+				"randshortcuts",
+				"randvessel"
+			]
 		]
 	},
-	
-	"tracker_horizontal": 
-	{
+	"tracker_horizontal": {
 		"type": "container",
-		"content": 
-		{
+		"content": {
 			"type": "dock",
 			"dropshadow": true,
-			"content": 
-			[
+			"content": [
 				{
 					"type": "array",
 					"dock": "left",
 					"orientation": "vertical",
-					"content": 
-					[
+					"content": [
 						{
 							"type": "group",
 							"header": "Act 1",
-							"content": 
-							{
+							"content": {
 								"type": "array",
 								"orientation": "horizontal",
 								"margin": "0,0",
-								"content": 
-								[
+								"content": [
 									{
 										"type": "layout",
 										"key": "act1_grid"
@@ -110,13 +58,11 @@
 						{
 							"type": "group",
 							"header": "Act 2",
-							"content": 
-							{
+							"content": {
 								"type": "array",
 								"orientation": "horizontal",
 								"margin": "0,0",
-								"content": 
-								[
+								"content": [
 									{
 										"type": "layout",
 										"key": "act2_grid"
@@ -127,13 +73,11 @@
 						{
 							"type": "group",
 							"header": "Act 3",
-							"content":
-							{
+							"content": {
 								"type": "array",
 								"orientation": "horizontal",
 								"margin": "0,0",
-								"content":
-								[
+								"content": [
 									{
 										"type": "layout",
 										"key": "act3_grid"
@@ -144,13 +88,11 @@
 						{
 							"type": "group",
 							"header": "Shared",
-							"content":
-							{
+							"content": {
 								"type": "array",
 								"orientation": "horizontal",
 								"margin": "0,0",
-								"content":
-								[
+								"content": [
 									{
 										"type": "layout",
 										"key": "shared_grid"
@@ -169,30 +111,32 @@
 						{
 							"type": "tabbed",
 							"dock": "top",
-							"tabs": 
-							[
-								{ 
+							"tabs": [
+								{
 									"title": "Act 1",
-									"content": 
-									{
+									"content": {
 										"type": "map",
-										"maps": ["Act 1"]
+										"maps": [
+											"Act 1"
+										]
 									}
 								},
-								{ 
+								{
 									"title": "Act 2",
-									"content": 
-									{
+									"content": {
 										"type": "map",
-										"maps": ["Act 2"]
+										"maps": [
+											"Act 2"
+										]
 									}
 								},
-								{ 
+								{
 									"title": "Act 3",
-									"content": 
-									{
+									"content": {
 										"type": "map",
-										"maps": ["Act 3"]
+										"maps": [
+											"Act 3"
+										]
 									}
 								}
 							]
@@ -203,18 +147,15 @@
 					"type": "array",
 					"dock": "right",
 					"orientation": "vertical",
-					"content": 
-					[
+					"content": [
 						{
 							"type": "group",
 							"header": "Options",
-							"content": 
-							{
+							"content": {
 								"type": "array",
 								"orientation": "horizontal",
 								"margin": "0,0",
-								"content": 
-								[
+								"content": [
 									{
 										"type": "layout",
 										"key": "options_grid"
@@ -223,41 +164,33 @@
 							}
 						}
 					]
-				},
+				}
 			]
 		}
 	},
-	
-	"tracker_vertical":
-	{
+	"tracker_vertical": {
 		"type": "container",
-		"content": 
-		{
+		"content": {
 			"type": "dock",
 			"dropshadow": true,
-			"content": 
-			[
+			"content": [
 				{
 					"type": "dock",
 					"dock": "bottom",
 					"h_alignment": "stretch",
-					"content": 
-					[
+					"content": [
 						{
 							"type": "array",
 							"orientation": "horizontal",
-							"content": 
-							[
+							"content": [
 								{
 									"type": "group",
 									"header": "Act 1",
-									"content": 
-									{
+									"content": {
 										"type": "array",
 										"orientation": "vertical",
 										"margin": "0,0",
-										"content": 
-										[
+										"content": [
 											{
 												"type": "layout",
 												"key": "act1_grid"
@@ -268,13 +201,11 @@
 								{
 									"type": "group",
 									"header": "Act 2",
-									"content": 
-									{
+									"content": {
 										"type": "array",
 										"orientation": "vertical",
 										"margin": "0,0",
-										"content": 
-										[
+										"content": [
 											{
 												"type": "layout",
 												"key": "act2_grid"
@@ -285,13 +216,11 @@
 								{
 									"type": "group",
 									"header": "Act 3",
-									"content":
-									{
+									"content": {
 										"type": "array",
 										"orientation": "vertical",
 										"margin": "0,0",
-										"content":
-										[
+										"content": [
 											{
 												"type": "layout",
 												"key": "act3_grid"
@@ -302,13 +231,11 @@
 								{
 									"type": "group",
 									"header": "Shared",
-									"content":
-									{
+									"content": {
 										"type": "array",
 										"orientation": "vertical",
 										"margin": "0,0",
-										"content":
-										[
+										"content": [
 											{
 												"type": "layout",
 												"key": "shared_grid"
@@ -325,35 +252,36 @@
 					"v_alignment": "stretch",
 					"h_alignment": "stretch",
 					"margin": "0, 0, 0, 0",
-					"content":
-					[
+					"content": [
 						{
 							"type": "tabbed",
 							"dock": "top",
-							"tabs": 
-							[
-								{ 
+							"tabs": [
+								{
 									"title": "Act 1",
-									"content": 
-									{
+									"content": {
 										"type": "map",
-										"maps": ["Act 1"]
+										"maps": [
+											"Act 1"
+										]
 									}
 								},
-								{ 
+								{
 									"title": "Act 2",
-									"content": 
-									{
+									"content": {
 										"type": "map",
-										"maps": ["Act 2"]
+										"maps": [
+											"Act 2"
+										]
 									}
 								},
-								{ 
+								{
 									"title": "Act 3",
-									"content": 
-									{
+									"content": {
 										"type": "map",
-										"maps": ["Act 3"]
+										"maps": [
+											"Act 3"
+										]
 									}
 								}
 							]

@@ -12,12 +12,15 @@ Tracker:AddItems("options/options.json")
 init_options()
 
 -- Open Maps, Then Layouts, Then Locations
+-- item_grids.json holds the grids every layout shares; load it before them.
 if (string.find(Tracker.ActiveVariantUID, "items_only")) then
+	Tracker:AddLayouts("layouts/item_grids.json")
     Tracker:AddLayouts("layouts/items_only.json")
 	Tracker:AddLayouts("layouts/broadcast_vertical.json")
     Tracker:AddLayouts("layouts/settings.json")
 elseif (string.find(Tracker.ActiveVariantUID, "map_tracker")) then
 	Tracker:AddMaps("maps/maps.json")
+	Tracker:AddLayouts("layouts/item_grids.json")
 	Tracker:AddLayouts("layouts/tracker_standard.json")
 	Tracker:AddLayouts("layouts/broadcast_vertical.json")
 	Tracker:AddLocations("locations/Act1.json")
