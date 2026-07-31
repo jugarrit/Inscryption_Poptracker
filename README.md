@@ -34,8 +34,13 @@ The Act 1 node and challenge item icons are extracted from the game's own assets
 parchment because it is black ink and would be invisible on a dark background, and the Kaycee's Mod
 `ascensionicon_*` icons used as-is since they are white on transparent. The mapping from AP item to
 game asset is taken from the mod's `ReplaceLockedNodeIcon` and `SetChallengesOnStartup` patches.
-The act unlock icons come from the mod's own `Assets Sources`. The remaining new item and option
-icons are generated placeholders.
+The act unlock icons come from the mod's own `Assets Sources`. The Act 2 bridge repair is cropped
+from `broken_bridge_bg`, whose left end is already broken, and the three Act 3 shortcuts reuse the
+game's own fast travel icon (`holomap_fasttravelhint_1`) tinted to each destination's region colour,
+sampled from `images/maps/Act3.png`. The two Act 3 gate icons are screenshots of the NPCs who block
+the bridge and the Resplendent Bastion.
+
+Still generated placeholders: the vessel and conduit upgrades, the hammer, and every option icon.
 
 ### Keeping the logic in sync with the apworld
 
