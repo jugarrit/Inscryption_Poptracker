@@ -40,7 +40,9 @@ game's own fast travel icon (`holomap_fasttravelhint_1`) tinted to each destinat
 sampled from `images/maps/Act3.png`. The two Act 3 gate icons are screenshots of the NPCs who block
 the bridge and the Resplendent Bastion.
 
-Still generated placeholders: the vessel and conduit upgrades, the hammer, and every option icon.
+The hammer uses the Act 2 hammer mouse cursor (`cursor_icons_34`).
+
+Still generated placeholders: the vessel and conduit upgrades, and every option icon.
 
 ### Keeping the logic in sync with the apworld
 
