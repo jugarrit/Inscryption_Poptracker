@@ -1,0 +1,135 @@
+{
+	"act1_grid": {
+		"type": "itemgrid",
+		"h_alignment": "left",
+		"item_margin": "2,2",
+		"item_size": "64,64",
+		"rows": [
+			[
+				"stinkbug",
+				"stuntedwolf",
+				"skink",
+				"ant"
+			],
+			[
+				"greatersmoke",
+				"cagedwolf",
+				"dagger",
+				"magnificuseye"
+			],
+			[
+				"wardrobekey",
+				"hook",
+				"squirreltotem",
+				"ring"
+			],
+			[
+				"paintingclover",
+				"extracandle",
+				"beefigurine",
+				"filmroll"
+			],
+			[
+				"woodcarvernode",
+				"myconode",
+				"bonealtarnode",
+				"sacstonesnode"
+			],
+			[
+				"backpacknode",
+				"campfirenode",
+				"goobertnode",
+				"smallerbackpack"
+			],
+			[
+				"priceypelts",
+				"bosstotems",
+				"alltotembattles",
+				"tippedscales"
+			],
+			[
+				"moredifficult",
+				"progcandle",
+				"progsquirrel",
+				"proggrizzlies"
+			]
+		]
+	},
+	"act2_grid": {
+		"type": "itemgrid",
+		"h_alignment": "left",
+		"item_margin": "2,2",
+		"item_size": "64,64",
+		"rows": [
+			[
+				"kraken",
+				"drownedsoul",
+				"salmon",
+				"horn"
+			],
+			[
+				"camera",
+				"meat",
+				"epitaph",
+				"monocle"
+			],
+			[
+				"femur",
+				"obol",
+				"dockclover",
+				"act2bridgerepair"
+			]
+		]
+	},
+	"act3_grid": {
+		"type": "itemgrid",
+		"h_alignment": "left",
+		"item_margin": "2,2",
+		"item_size": "64,64",
+		"rows": [
+			[
+				"lonelywizbot",
+				"fishbot",
+				"ourobot",
+				"holopelt"
+			],
+			[
+				"inspectobattery",
+				"quill",
+				"gemsmodule",
+				"bonelordkey"
+			],
+			[
+				"extrabattery",
+				"nanoarmor",
+				"bombremote",
+				"mycokey"
+			],
+			[
+				"act3bridgerepair",
+				"bastiongate",
+				"vesselupgrade",
+				"conduitupgrade"
+			],
+			[
+				"foulshortcut",
+				"filthyshortcut",
+				"gaudyshortcut"
+			]
+		]
+	},
+	"shared_grid": {
+		"type": "itemgrid",
+		"h_alignment": "left",
+		"item_margin": "2,2",
+		"item_size": "64,64",
+		"rows": [
+			[
+				"hammer",
+				"act1unlock",
+				"act2unlock",
+				"act3unlock"
+			]
+		]
+	}
+}

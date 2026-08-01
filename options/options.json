@@ -1,29 +1,160 @@
 [
 	{
+		"name": "Act 1 Enabled",
+		"codes": "act1on",
+		"type": "toggle",
+		"initial_active_state": true,
+		"img": "images/options/act1_enabled.png"
+	},
+	{
+		"name": "Act 2 Enabled",
+		"codes": "act2on",
+		"type": "toggle",
+		"initial_active_state": true,
+		"img": "images/options/act2_enabled.png"
+	},
+	{
+		"name": "Act 3 Enabled",
+		"codes": "act3on",
+		"type": "toggle",
+		"initial_active_state": true,
+		"img": "images/options/act3_enabled.png"
+	},
+	{
+		"name": "Act Unlocks",
+		"codes": "actunlocks",
+		"type": "progressive",
+		"loop": true,
+		"allow_disabled": false,
+		"initial_stage_idx": 0,
+		"stages":
+		[
+			{
+				"codes": "unlocksequential",
+				"inherit_codes": false,
+				"img": "images/options/actunlocks_sequential.png"
+			},
+			{
+				"codes": "unlockopen",
+				"inherit_codes": false,
+				"img": "images/options/actunlocks_open.png"
+			},
+			{
+				"codes": "unlockitems",
+				"inherit_codes": false,
+				"img": "images/options/actunlocks_items.png"
+			}
+		]
+	},
+	{
 		"name": "Goal",
 		"codes": "goal",
 		"type": "progressive",
 		"loop": true,
 		"allow_disabled": false,
-		"initial_stage_idx": 0,
-		"stages": 
+		"initial_stage_idx": 2,
+		"stages":
 		[
 			{
-				"codes": "inorder",
+				"codes": "oneact",
 				"inherit_codes": false,
-				"img": "images/options/goal_inorder.png"
+				"img": "images/options/goal_oneact.png"
 			},
 			{
-				"codes": "anyorder",
+				"codes": "twoacts",
 				"inherit_codes": false,
-				"img": "images/options/goal_anyorder.png"
+				"img": "images/options/goal_twoacts.png"
 			},
 			{
-				"codes": "act1only",
+				"codes": "allacts",
 				"inherit_codes": false,
-				"img": "images/options/goal_act1.png"
+				"img": "images/options/goal_allacts.png"
 			}
-		] 
+		]
+	},
+	{
+		"name": "Painting Checks Balancing",
+		"codes": "paintingbalance",
+		"type": "progressive",
+		"loop": true,
+		"allow_disabled": false,
+		"initial_stage_idx": 1,
+		"stages":
+		[
+			{
+				"codes": "paintingnone",
+				"inherit_codes": false,
+				"img": "images/options/paintingbalance_none.png"
+			},
+			{
+				"codes": "paintingbalanced",
+				"inherit_codes": false,
+				"img": "images/options/paintingbalance_balanced.png"
+			},
+			{
+				"codes": "paintingfiller",
+				"inherit_codes": false,
+				"img": "images/options/paintingbalance_filler.png"
+			}
+		]
+	},
+	{
+		"name": "Randomize Nodes",
+		"codes": "randnodes",
+		"type": "toggle",
+		"img": "images/options/randnodes_on.png"
+	},
+	{
+		"name": "Randomize Challenges",
+		"codes": "randchallenges",
+		"type": "progressive",
+		"loop": true,
+		"allow_disabled": false,
+		"initial_stage_idx": 0,
+		"stages":
+		[
+			{
+				"codes": "challengesoff",
+				"inherit_codes": false,
+				"img": "images/options/randchallenges_disable.png"
+			},
+			{
+				"codes": "challengesnogrizzly",
+				"inherit_codes": false,
+				"img": "images/options/randchallenges_nogrizzlies.png"
+			},
+			{
+				"codes": "challengeson",
+				"inherit_codes": false,
+				"img": "images/options/randchallenges_randomize.png"
+			}
+		]
+	},
+	{
+		"name": "Act 2 Randomize Bridge",
+		"codes": "act2bridge",
+		"type": "progressive",
+		"loop": true,
+		"allow_disabled": false,
+		"initial_stage_idx": 0,
+		"stages":
+		[
+			{
+				"codes": "act2bridgevanilla",
+				"inherit_codes": false,
+				"img": "images/options/act2bridge_disable.png"
+			},
+			{
+				"codes": "act2bridgerandom",
+				"inherit_codes": false,
+				"img": "images/options/act2bridge_enable.png"
+			},
+			{
+				"codes": "act2bridgeleftstart",
+				"inherit_codes": false,
+				"img": "images/options/act2bridge_leftstart.png"
+			}
+		]
 	},
 	{
 		"name": "Epitaph Pieces Randomization",
@@ -32,7 +163,7 @@
 		"loop": true,
 		"allow_disabled": false,
 		"initial_stage_idx": 0,
-		"stages": 
+		"stages":
 		[
 			{
 				"codes": "allpieces",
@@ -49,6 +180,90 @@
 				"inherit_codes": false,
 				"img": "images/options/epitaphtype_one.png"
 			}
-		] 
+		]
 	},
+	{
+		"name": "Randomize Hammer",
+		"codes": "randhammer",
+		"type": "progressive",
+		"loop": true,
+		"allow_disabled": false,
+		"initial_stage_idx": 0,
+		"stages":
+		[
+			{
+				"codes": "hammervanilla",
+				"inherit_codes": false,
+				"img": "images/options/randhammer_vanilla.png"
+			},
+			{
+				"codes": "hammerrandom",
+				"inherit_codes": false,
+				"img": "images/options/randhammer_randomize.png"
+			},
+			{
+				"codes": "hammerremoved",
+				"inherit_codes": false,
+				"img": "images/options/randhammer_remove.png"
+			}
+		]
+	},
+	{
+		"name": "Act 3 Overhaul",
+		"codes": "act3overhaul",
+		"type": "toggle",
+		"img": "images/options/act3overhaul_on.png"
+	},
+	{
+		"name": "Randomize Shortcuts",
+		"codes": "randshortcuts",
+		"type": "progressive",
+		"loop": true,
+		"allow_disabled": false,
+		"initial_stage_idx": 0,
+		"stages":
+		[
+			{
+				"codes": "shortcutsvanilla",
+				"inherit_codes": false,
+				"img": "images/options/randshortcuts_vanilla.png"
+			},
+			{
+				"codes": "shortcutsrandom",
+				"inherit_codes": false,
+				"img": "images/options/randshortcuts_randomize.png"
+			},
+			{
+				"codes": "shortcutsopen",
+				"inherit_codes": false,
+				"img": "images/options/randshortcuts_open.png"
+			}
+		]
+	},
+	{
+		"name": "Randomize Vessel Upgrades",
+		"codes": "randvessel",
+		"type": "progressive",
+		"loop": true,
+		"allow_disabled": false,
+		"initial_stage_idx": 0,
+		"stages":
+		[
+			{
+				"codes": "vesselvanilla",
+				"inherit_codes": false,
+				"img": "images/options/randvessel_vanilla.png"
+			},
+			{
+				"codes": "vesselrandom",
+				"inherit_codes": false,
+				"img": "images/options/randvessel_randomize.png"
+			},
+			{
+				"codes": "vesselremoveone",
+				"inherit_codes": false,
+				"img": "images/options/randvessel_removeone.png"
+			}
+		]
+	}
 ]
