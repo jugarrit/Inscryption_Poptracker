@@ -13,7 +13,8 @@ OPTION_MAPPING = {
     ["randomize_hammer"] = {"randhammer", "progressive"},
     ["act3_overhaul"] = {"act3overhaul", "toggle"},
     ["randomize_shortcuts"] = {"randshortcuts", "progressive"},
-    ["randomize_vessel_upgrades"] = {"randvessel", "progressive"}
+    ["randomize_vessel_upgrades"] = {"randvessel", "progressive"},
+    ["release_on_act_completion"] = {"releaseonact", "toggle"}
 }
 
 -- Values used when a slot data key is missing, matching the apworld defaults.
@@ -31,5 +32,6 @@ OPTION_DEFAULTS = {
     ["randhammer"] = 0,
     ["act3overhaul"] = 0,
     ["randshortcuts"] = 0,
-    ["randvessel"] = 0
+    ["randvessel"] = 0,
+    ["releaseonact"] = 0
 }
