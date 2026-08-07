@@ -21,9 +21,10 @@
 				"randchallenges",
 				"act2bridge",
 				"act3overhaul",
-				"randhammer"
+				"releaseonact"
 			],
 			[
+				"randhammer",
 				"randshortcuts",
 				"randvessel"
 			]

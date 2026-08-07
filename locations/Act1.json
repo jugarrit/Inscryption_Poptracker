@@ -32,7 +32,8 @@
 					{
 						"name": "Woodlands Battle 2",
 						"access_rules": [
-							"$a1_woodlands_later"
+							"$a1_woodlands_later",
+							"$release_act1"
 						],
 						"visibility_rules": [
 							"$vis_a1_battles"
@@ -42,7 +43,8 @@
 					{
 						"name": "Woodlands Battle 3",
 						"access_rules": [
-							"$a1_woodlands_later"
+							"$a1_woodlands_later",
+							"$release_act1"
 						],
 						"visibility_rules": [
 							"$vis_a1_battles"
@@ -52,7 +54,8 @@
 					{
 						"name": "Woodlands Consumable Check 1",
 						"access_rules": [
-							"$a1_woodlands_consumable"
+							"$a1_woodlands_consumable",
+							"$release_act1"
 						],
 						"visibility_rules": [
 							"$vis_a1_consumables"
@@ -62,7 +65,8 @@
 					{
 						"name": "Woodlands Consumable Check 2",
 						"access_rules": [
-							"$a1_woodlands_consumable"
+							"$a1_woodlands_consumable",
+							"$release_act1"
 						],
 						"visibility_rules": [
 							"$vis_a1_consumables"
@@ -72,14 +76,16 @@
 					{
 						"name": "Boss Prospector",
 						"access_rules": [
-							"$a1_prospector"
+							"$a1_prospector",
+							"$release_act1"
 						],
 						"item_count": 1
 					},
 					{
 						"name": "Wetlands Battle 1",
 						"access_rules": [
-							"$a1_wetlands"
+							"$a1_wetlands",
+							"$release_act1"
 						],
 						"visibility_rules": [
 							"$vis_a1_battles"
@@ -89,7 +95,8 @@
 					{
 						"name": "Wetlands Battle 2",
 						"access_rules": [
-							"$a1_wetlands"
+							"$a1_wetlands",
+							"$release_act1"
 						],
 						"visibility_rules": [
 							"$vis_a1_battles"
@@ -99,7 +106,8 @@
 					{
 						"name": "Wetlands Battle 3",
 						"access_rules": [
-							"$a1_wetlands"
+							"$a1_wetlands",
+							"$release_act1"
 						],
 						"visibility_rules": [
 							"$vis_a1_battles"
@@ -109,7 +117,8 @@
 					{
 						"name": "Wetlands Consumable Check 1",
 						"access_rules": [
-							"$a1_wetlands_consumable"
+							"$a1_wetlands_consumable",
+							"$release_act1"
 						],
 						"visibility_rules": [
 							"$vis_a1_consumables"
@@ -119,7 +128,8 @@
 					{
 						"name": "Wetlands Consumable Check 2",
 						"access_rules": [
-							"$a1_wetlands_consumable"
+							"$a1_wetlands_consumable",
+							"$release_act1"
 						],
 						"visibility_rules": [
 							"$vis_a1_consumables"
@@ -129,14 +139,16 @@
 					{
 						"name": "Boss Angler",
 						"access_rules": [
-							"$a1_angler"
+							"$a1_angler",
+							"$release_act1"
 						],
 						"item_count": 1
 					},
 					{
 						"name": "Snow Line Battle 1",
 						"access_rules": [
-							"$a1_snow_line"
+							"$a1_snow_line",
+							"$release_act1"
 						],
 						"visibility_rules": [
 							"$vis_a1_battles"
@@ -146,7 +158,8 @@
 					{
 						"name": "Snow Line Battle 2",
 						"access_rules": [
-							"$a1_snow_line"
+							"$a1_snow_line",
+							"$release_act1"
 						],
 						"visibility_rules": [
 							"$vis_a1_battles"
@@ -156,7 +169,8 @@
 					{
 						"name": "Snow Line Battle 3",
 						"access_rules": [
-							"$a1_snow_line"
+							"$a1_snow_line",
+							"$release_act1"
 						],
 						"visibility_rules": [
 							"$vis_a1_battles"
@@ -166,7 +180,8 @@
 					{
 						"name": "Snow Line Consumable Check 1",
 						"access_rules": [
-							"$a1_snow_line_consumable"
+							"$a1_snow_line_consumable",
+							"$release_act1"
 						],
 						"visibility_rules": [
 							"$vis_a1_consumables"
@@ -176,7 +191,8 @@
 					{
 						"name": "Snow Line Consumable Check 2",
 						"access_rules": [
-							"$a1_snow_line_consumable"
+							"$a1_snow_line_consumable",
+							"$release_act1"
 						],
 						"visibility_rules": [
 							"$vis_a1_consumables"
@@ -186,21 +202,24 @@
 					{
 						"name": "Boss Trapper",
 						"access_rules": [
-							"$a1_trapper"
+							"$a1_trapper",
+							"$release_act1"
 						],
 						"item_count": 1
 					},
 					{
 						"name": "Boss Leshy",
 						"access_rules": [
-							"$a1_leshy"
+							"$a1_leshy",
+							"$release_act1"
 						],
 						"item_count": 1
 					},
 					{
 						"name": "Trader Rabbit Pelt",
 						"access_rules": [
-							"$a1_woodlands_later"
+							"$a1_woodlands_later",
+							"$release_act1"
 						],
 						"visibility_rules": [
 							"$vis_a1_challenge_checks"
@@ -210,7 +229,8 @@
 					{
 						"name": "Trader Wolf Pelt",
 						"access_rules": [
-							"$a1_wolf_pelt"
+							"$a1_wolf_pelt",
+							"$release_act1"
 						],
 						"visibility_rules": [
 							"$vis_a1_challenge_checks"
@@ -220,7 +240,8 @@
 					{
 						"name": "Trader Golden Pelt",
 						"access_rules": [
-							"$a1_golden_pelt"
+							"$a1_golden_pelt",
+							"$release_act1"
 						],
 						"visibility_rules": [
 							"$vis_a1_challenge_checks"
@@ -230,7 +251,8 @@
 					{
 						"name": "Magnificus Eye",
 						"access_rules": [
-							"$has|dagger"
+							"$has|dagger",
+							"$release_act1"
 						],
 						"item_count": 1
 					}
@@ -252,7 +274,8 @@
 					{
 						"name": "Check",
 						"access_rules": [
-							"$beat_act1"
+							"$beat_act1",
+							"$release_act1"
 						],
 						"item_count": 1
 					}
@@ -344,14 +367,16 @@
 					{
 						"name": "Upper Compartment",
 						"access_rules": [
-							"$a1_trapper"
+							"$a1_trapper",
+							"$release_act1"
 						],
 						"item_count": 1
 					},
 					{
 						"name": "Main Compartment",
 						"access_rules": [
-							"$has|magnificuseye"
+							"$has|magnificuseye",
+							"$release_act1"
 						],
 						"item_count": 1
 					}
@@ -370,7 +395,8 @@
 					{
 						"name": "Card",
 						"access_rules": [
-							"$has|cagedwolf"
+							"$has|cagedwolf",
+							"$release_act1"
 						],
 						"item_count": 1
 					}
@@ -386,7 +412,8 @@
 					}
 				],
 				"access_rules": [
-					"$has|wardrobekey"
+					"$has|wardrobekey",
+					"$release_act1"
 				],
 				"sections": [
 					{
@@ -420,21 +447,24 @@
 					{
 						"name": "Painting 1",
 						"access_rules": [
-							"$a1_painting_1"
+							"$a1_painting_1",
+							"$release_act1"
 						],
 						"item_count": 1
 					},
 					{
 						"name": "Painting 2",
 						"access_rules": [
-							"$a1_painting_2"
+							"$a1_painting_2",
+							"$release_act1"
 						],
 						"item_count": 1
 					},
 					{
 						"name": "Painting 3",
 						"access_rules": [
-							"$a1_painting_3"
+							"$a1_painting_3",
+							"$release_act1"
 						],
 						"item_count": 1
 					}

@@ -31,19 +31,27 @@ seed does not generate — for example the Act 3 shortcut checks when Randomize 
 
 The Act 1 node and challenge item icons are extracted from the game's own assets — node art
 (`animated_buildtotemnode`, `animated_mushrooms`, …) composited onto the map's `paper_darker`
-parchment because it is black ink and would be invisible on a dark background, and the Kaycee's Mod
-`ascensionicon_*` icons used as-is since they are white on transparent. The mapping from AP item to
-game asset is taken from the mod's `ReplaceLockedNodeIcon` and `SetChallengesOnStartup` patches.
+parchment because it is black ink and would be invisible on a dark background, with the parchment
+square faded to transparent toward its edges (a rounded-square alpha falloff) so it reads as a
+trimmed icon instead of a hard-edged tile, and the Kaycee's Mod `ascensionicon_*` icons tinted red
+(`#96202A`, sampled from the game's own activated-challenge colour) instead of used white-on-
+transparent, since the game itself renders an active challenge in red rather than white. The
+mapping from AP item to game asset is taken from the mod's `ReplaceLockedNodeIcon` and
+`SetChallengesOnStartup` patches.
 The act unlock icons come from the mod's own `Assets Sources`. The Act 2 bridge repair is cropped
 from `broken_bridge_bg`, whose left end is already broken, and the three Act 3 shortcuts reuse the
 game's own fast travel icon (`holomap_fasttravelhint_1`) tinted to each destination's region colour,
 sampled from `images/maps/Act3.png`. The two Act 3 gate icons are screenshots of the NPCs who block
 the bridge and the Resplendent Bastion.
 
-The hammer uses the Act 2 hammer mouse cursor (`cursor_icons_34`). The vessel upgrade is a
-screenshot of the empty vessel at a `ModifySideDeckNode3D` station; the conduit upgrade is the
-`ability_conduitnull` sigil, which is what that station grants when `addConduitAbility` is set,
-tinted to the holo colour sampled from the vessel screenshot so the pair matches.
+The hammer uses the Act 2 hammer mouse cursor (`cursor_icons_34`). The vessel upgrade uses the
+game's own `portrait_emptyvessel` card art, and the conduit upgrade the game's own
+`portrait_conduitnull` card art — both extracted from `resources.assets` with UnityPy, since they
+are black ink on transparent meant for a card face rather than a 3D prefab. `portrait_conduitnull`
+was used over the `ability_conduitnull` sigil (what the `ModifySideDeckNode3D` station actually
+grants when `addConduitAbility` is set) because the sigil bakes in the "0" ability-value badge,
+which reads as a stray digit rather than an icon at this size. Both are tinted to the same holo
+cyan (`#25B3E5`, originally sampled from `ability_conduitnull`) so the pair matches.
 
 Still generated placeholders: every option icon.
 

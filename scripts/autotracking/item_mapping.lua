@@ -75,11 +75,15 @@ ITEM_MAPPING = {
     [147066] = {"act2unlock", "toggle"}, -- Act 2
     [147067] = {"act3unlock", "toggle"}, -- Act 3
     -- Filler
-    [147068] = {}, -- Currency
-    [147069] = {}, -- Card Pack
+    [147068] = {}, -- Act 1 Currency
+    [147069] = {}, -- Act 2 Currency
+    [147070] = {}, -- Act 3 Currency
+    [147071] = {}, -- Act 1 Card Pack
+    [147072] = {}, -- Act 2 Card Pack
+    [147073] = {}, -- Act 3 Card Pack
     -- Traps
-    [147070] = {}, -- Bleach Trap
-    [147071] = {}, -- Trash Trap
-    [147072] = {}, -- Deck Size Trap
-    [147073] = {} -- Reinforcements Trap
+    [147074] = {}, -- Bleach Trap
+    [147075] = {}, -- Trash Trap
+    [147076] = {}, -- Deck Size Trap
+    [147077] = {} -- Reinforcements Trap
 }

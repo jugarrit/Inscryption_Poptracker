@@ -471,6 +471,30 @@ function act3_access()
   return true
 end
 
+function beat_act3()
+  if not flag("act3on") then
+    return true
+  end
+  return act3_access() and a3_transcendence()
+end
+
+-- ------------------------------------------------------------- Act release ---
+-- With release on act completion the mod hands over an act's remaining checks the moment
+-- that act is beaten, so every check in it is also in logic from that point. Mirrors the
+-- apworld, which ors each location's own rule with its act's beat rule.
+
+function release_act1()
+  return flag("releaseonact") and flag("act1on") and beat_act1()
+end
+
+function release_act2()
+  return flag("releaseonact") and flag("act2on") and beat_act2()
+end
+
+function release_act3()
+  return flag("releaseonact") and flag("act3on") and beat_act3()
+end
+
 -- ------------------------------------------------------------ Visibility ---
 -- Mirrors which locations create_regions() actually adds for the given options.
 
