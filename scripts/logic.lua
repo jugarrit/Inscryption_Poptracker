@@ -358,18 +358,6 @@ function a3_archivist()
   return a3_filthy_corpse_world() and has("quill")
 end
 
-function a3_battery_and_quill()
-  return has("quill") and a3_battery()
-end
-
-function a3_bridge_and_quill()
-  return has("quill") and a3_bridge()
-end
-
-function a3_gem_land_and_quill()
-  return has("quill") and a3_gaudy_gem_land()
-end
-
 function a3_pelts(amount)
   return has("holopelt", amount) and a3_bastion()
 end
