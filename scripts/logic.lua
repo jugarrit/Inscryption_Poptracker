@@ -379,8 +379,9 @@ function a3_transcendence()
   return a3_bastion() and a3_battery() and a3_archivist() and a3_gaudy_gem_land()
 end
 
+-- Available once the hut can be opened and eastern Botopia reached, not at the end of the act.
 function a3_mycologists()
-  return has("mycokey") and a3_transcendence()
+  return has("mycokey") and a3_filthy_corpse_world()
 end
 
 function a3_bone_lord_room()
