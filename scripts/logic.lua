@@ -147,6 +147,7 @@ function act1_battle_requirements(amount, is_boss, area2)
   return act1_battle_points(is_boss, area2) >= amount
 end
 
+-- Only the four boss rules pass is_boss; a region rule gates that region's ordinary battles.
 -- Thresholds are tuned per option combination. nil means neither option is on, so Act 1 runs
 -- at vanilla difficulty and its battles are free.
 function act1_points_needed(thresholds)
@@ -193,7 +194,7 @@ function a1_woodlands_later()
   -- Candles and backpacks do nothing for these early fights, so the threshold rises by exactly
   -- the points they contribute, cancelling them back out.
   local cancelled = count("progcandle") * 3 + count("backpacknode") * 2
-  return act1_battle_requirements(3 + cancelled, true, false)
+  return act1_battle_requirements(3 + cancelled, false, false)
 end
 
 function a1_prospector()
@@ -211,7 +212,7 @@ function a1_wetlands()
   if needed == nil then
     return true
   end
-  return act1_battle_requirements(needed, true, true) and a1_prospector()
+  return act1_battle_requirements(needed, false, true) and a1_prospector()
 end
 
 function a1_angler()
@@ -228,7 +229,7 @@ function a1_snow_line()
   if needed == nil then
     return true
   end
-  return act1_battle_requirements(needed, true, true) and a1_angler()
+  return act1_battle_requirements(needed, false, true) and a1_angler()
 end
 
 function a1_trapper()
