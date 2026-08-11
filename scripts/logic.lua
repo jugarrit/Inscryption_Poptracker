@@ -523,9 +523,8 @@ function beat_act3()
 end
 
 -- ------------------------------------------------------------- Act release ---
--- With release on act completion the mod hands over an act's remaining checks the moment
--- that act is beaten, so every check in it is also in logic from that point. Mirrors the
--- apworld, which ors each location's own rule with its act's beat rule.
+-- Beating an act hands over its remaining checks, so they are in logic from that point.
+-- Mirrors the apworld, which ors each location's own rule with its act's beat rule.
 
 function release_act1()
   return flag("releaseonact") and flag("act1on") and beat_act1()

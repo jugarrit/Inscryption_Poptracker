@@ -1,12 +1,10 @@
--- Evaluates the pack's logic.lua against cases written by check_logic_parity.py.
---
 -- Stubs the PopTracker API so `has`, `count`, `opt` and `flag` read from the case being
--- evaluated, then loads the real scripts/logic.lua and prints one row of 0/1 per case.
+-- evaluated, loads the real scripts/logic.lua, and prints one row of 0/1 per case.
 --
 --   lua tools/logic_driver.lua <pack dir> <cases file>
 --
--- The cases file returns {rules = {{fn = ..., arg = ...}, ...}, cases = {{opts, items}, ...}}
--- and a sibling "<cases file>.types" returns a code -> "toggle"/"consumable" table.
+-- Cases file returns {rules = {{fn, arg}, ...}, cases = {{opts, items}, ...}}; a sibling
+-- "<cases file>.types" returns a code -> "toggle"/"consumable" table.
 
 local pack = arg[1]
 local cases_file = arg[2]
