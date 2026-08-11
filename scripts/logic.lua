@@ -116,7 +116,7 @@ ACT1_AREA2_VALUES = {
   {"myconode", 1}, {"bonealtarnode", 1}
 }
 
-function act1_battle_points(is_boss, area2)
+function act1_battle_points(is_boss, is_area_1)
   local points = 0
   for _, entry in ipairs(ACT1_ITEM_VALUES) do
     if has(entry[1]) then points = points + entry[2] end
@@ -130,7 +130,7 @@ function act1_battle_points(is_boss, area2)
   for _, entry in ipairs(is_boss and ACT1_BOSS_ITEM_VALUES or ACT1_REGULAR_ITEM_VALUES) do
     if has(entry[1]) then points = points + entry[2] end
   end
-  if area2 then
+  if not is_area_1 then
     -- The base game only spawns these nodes from the wetlands on, so they can only have
     -- helped a battle in the wetlands or later.
     if has("sacstonesnode") and has("goobertnode") then points = points + 1 end
@@ -143,8 +143,8 @@ function act1_battle_points(is_boss, area2)
   return points
 end
 
-function act1_battle_requirements(amount, is_boss, area2)
-  return act1_battle_points(is_boss, area2) >= amount
+function act1_battle_requirements(amount, is_boss, is_area_1)
+  return act1_battle_points(is_boss, is_area_1) >= amount
 end
 
 -- Only the four boss rules pass is_boss; a region rule gates that region's ordinary battles.
@@ -194,7 +194,7 @@ function a1_woodlands_later()
   -- Candles and backpacks do nothing for these early fights, so the threshold rises by exactly
   -- the points they contribute, cancelling them back out.
   local cancelled = count("progcandle") * 3 + count("backpacknode") * 2
-  return act1_battle_requirements(3 + cancelled, false, false)
+  return act1_battle_requirements(3 + cancelled, false, true)
 end
 
 function a1_prospector()
@@ -203,7 +203,7 @@ function a1_prospector()
     return true
   end
   needed = needed + act1_grizzly_penalty(PROSPECTOR)
-  return act1_battle_requirements(needed, true, false) and a1_woodlands_later()
+  return act1_battle_requirements(needed, true, true) and a1_woodlands_later()
     and bypass_grizzly_requirements(PROSPECTOR)
 end
 
@@ -212,7 +212,7 @@ function a1_wetlands()
   if needed == nil then
     return true
   end
-  return act1_battle_requirements(needed, false, true) and a1_prospector()
+  return act1_battle_requirements(needed, false, false) and a1_prospector()
 end
 
 function a1_angler()
@@ -221,7 +221,7 @@ function a1_angler()
     return true
   end
   needed = needed + act1_grizzly_penalty(ANGLER)
-  return act1_battle_requirements(needed, true, true) and bypass_grizzly_requirements(ANGLER)
+  return act1_battle_requirements(needed, true, false) and bypass_grizzly_requirements(ANGLER)
 end
 
 function a1_snow_line()
@@ -229,7 +229,7 @@ function a1_snow_line()
   if needed == nil then
     return true
   end
-  return act1_battle_requirements(needed, false, true) and a1_angler()
+  return act1_battle_requirements(needed, false, false) and a1_angler()
 end
 
 function a1_trapper()
@@ -238,7 +238,7 @@ function a1_trapper()
     return true
   end
   needed = needed + act1_grizzly_penalty(TRAPPER)
-  return act1_battle_requirements(needed, true, true) and bypass_grizzly_requirements(TRAPPER)
+  return act1_battle_requirements(needed, true, false) and bypass_grizzly_requirements(TRAPPER)
 end
 
 function a1_leshy()
@@ -246,7 +246,7 @@ function a1_leshy()
   if needed == nil then
     return true
   end
-  return act1_battle_requirements(needed, true, true) and a1_trapper()
+  return act1_battle_requirements(needed, true, false) and a1_trapper()
 end
 
 -- Consumable checks are the items a run picks up off the map, which only exist while the
