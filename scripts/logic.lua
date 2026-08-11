@@ -150,35 +150,24 @@ function act1_battle_requirements(amount, is_boss, is_beyond_area1)
   return act1_battle_points(is_boss, is_beyond_area1) >= amount
 end
 
--- What the named items are contributing to the total above, for a rule that has to hand their
--- points back. Read from the same tables, so a retune cannot leave the two disagreeing.
+-- What the named items are worth, asked of the points function itself rather than restated, so a
+-- change to any value, context table or pairing is picked up here for free.
 function act1_points_from(items, is_boss, is_beyond_area1)
-  local points = 0
-  local tables = {ACT1_ITEM_VALUES, is_boss and ACT1_BOSS_ITEM_VALUES or ACT1_REGULAR_ITEM_VALUES}
-  if is_beyond_area1 then
-    table.insert(tables, ACT1_BEYOND_AREA1_VALUES)
-  end
-  for _, tbl in ipairs(tables) do
-    for _, entry in ipairs(tbl) do
-      for _, item in ipairs(items) do
-        if entry[1] == item and has(item) then points = points + entry[2] end
-      end
-    end
-  end
-  for _, entry in ipairs(ACT1_PROGRESSIVE_VALUES) do
-    for _, item in ipairs(items) do
-      if entry[1] == item then
-        local owned = count(item)
-        for copy, value in ipairs(entry[2]) do
-          if owned >= copy then points = points + value end
-        end
-      end
-    end
-  end
+  local allowed = {}
+  for _, item in ipairs(items) do allowed[item] = true end
+
+  -- The points function reads the tracker through these, so narrowing them to the named items
+  -- is what makes it score those alone. Restored before returning.
+  local real_has, real_count = has, count
+  has = function(item, amount) return allowed[item] and real_has(item, amount) end
+  count = function(item) return allowed[item] and real_count(item) or 0 end
+
+  local points = act1_battle_points(is_boss, is_beyond_area1)
+
+  has, count = real_has, real_count
   return points
 end
 
--- Only the four boss rules pass is_boss; a region rule gates that region's ordinary battles.
 -- Thresholds are tuned per option combination. nil means neither option is on, so Act 1 runs
 -- at vanilla difficulty and its battles are free.
 function act1_points_needed(thresholds)
