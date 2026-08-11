@@ -85,20 +85,24 @@ end
 -- Each Act 1 boss keeps its grizzly phase until this many Progressive Grizzlies are collected.
 PROSPECTOR, ANGLER, TRAPPER = 1, 2, 3
 
--- How far a boss's points threshold rises while it keeps its grizzly phase, and once the
--- All Totem Battles challenge has been turned off.
+-- How far a boss's points threshold rises while it keeps its grizzly phase.
 GRIZZLY_PENALTY = 10
-TOTEM_PENALTY = 3
 
 ACT1_ITEM_VALUES = {
   {"hook", 1}, {"paintingclover", 1}, {"dagger", 1},
   {"woodcarvernode", 2}, {"backpacknode", 2},
   {"sacstonesnode", 3}, {"campfirenode", 3},
-  {"alltotembattles", 3}, {"beefigurine", 3}, {"extracandle", 3}
+  {"beefigurine", 3}, {"extracandle", 3}
 }
 
 ACT1_BOSS_ITEM_VALUES = {
   {"greatersmoke", 1}, {"bosstotems", 3}
+}
+
+-- Only ever counted for a regular battle. All Totem Battles turns regular map nodes into
+-- totem battles; Boss Totems, above, is the challenge that puts a totem on a boss.
+ACT1_REGULAR_ITEM_VALUES = {
+  {"alltotembattles", 3}
 }
 
 ACT1_PROGRESSIVE_VALUES = {
@@ -123,10 +127,8 @@ function act1_battle_points(is_boss, area2)
       if owned >= copy then points = points + value end
     end
   end
-  if is_boss then
-    for _, entry in ipairs(ACT1_BOSS_ITEM_VALUES) do
-      if has(entry[1]) then points = points + entry[2] end
-    end
+  for _, entry in ipairs(is_boss and ACT1_BOSS_ITEM_VALUES or ACT1_REGULAR_ITEM_VALUES) do
+    if has(entry[1]) then points = points + entry[2] end
   end
   if area2 then
     -- The base game only spawns these nodes from the wetlands on, so they can only have
@@ -156,15 +158,6 @@ function act1_points_needed(thresholds)
     return thresholds.nodes_only
   end
   return nil
-end
-
--- All Totem Battles only changes regular battles, so on a boss the threshold rises by exactly
--- the points the item is worth, cancelling it back out.
-function act1_totem_penalty()
-  if has("alltotembattles") then
-    return TOTEM_PENALTY
-  end
-  return 0
 end
 
 -- How much extra help a boss needs while it still has its grizzly phase.
@@ -208,7 +201,7 @@ function a1_prospector()
   if needed == nil then
     return true
   end
-  needed = needed + act1_totem_penalty() + act1_grizzly_penalty(PROSPECTOR)
+  needed = needed + act1_grizzly_penalty(PROSPECTOR)
   return act1_battle_requirements(needed, true, false) and a1_woodlands_later()
     and bypass_grizzly_requirements(PROSPECTOR)
 end
@@ -226,7 +219,7 @@ function a1_angler()
   if needed == nil then
     return true
   end
-  needed = needed + act1_totem_penalty() + act1_grizzly_penalty(ANGLER)
+  needed = needed + act1_grizzly_penalty(ANGLER)
   return act1_battle_requirements(needed, true, true) and bypass_grizzly_requirements(ANGLER)
 end
 
@@ -243,7 +236,7 @@ function a1_trapper()
   if needed == nil then
     return true
   end
-  needed = needed + act1_totem_penalty() + act1_grizzly_penalty(TRAPPER)
+  needed = needed + act1_grizzly_penalty(TRAPPER)
   return act1_battle_requirements(needed, true, true) and bypass_grizzly_requirements(TRAPPER)
 end
 
@@ -252,7 +245,6 @@ function a1_leshy()
   if needed == nil then
     return true
   end
-  needed = needed + act1_totem_penalty()
   return act1_battle_requirements(needed, true, true) and a1_trapper()
 end
 
