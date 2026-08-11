@@ -18,7 +18,7 @@ LUA = os.path.join(PACK, "scripts", "logic.lua")
 
 BUILTINS = {"ipairs", "pairs", "tonumber", "tostring", "type", "print", "require", "table",
             "string", "math", "os", "io", "pcall", "select", "next", "error", "setmetatable"}
-KEYWORDS = {"not", "or", "and", "return", "if", "elseif", "while", "until", "then"}
+KEYWORDS = {"not", "or", "and", "return", "if", "elseif", "while", "until", "then", "function"}
 
 
 def main():
@@ -27,7 +27,10 @@ def main():
                      for line in src.splitlines())
 
     defined = set(re.findall(r"^function\s+([A-Za-z_][\w]*)\s*\(", code, re.M))
-    names = set(re.findall(r"\blocal\s+([A-Za-z_][\w]*)", code))
+    # A local declaration can name several at once, so take every name before the "=".
+    names = set()
+    for decl in re.findall(r"\blocal\s+([A-Za-z_][\w,\s]*?)\s*(?:=|$)", code, re.M):
+        names |= {n.strip() for n in decl.split(",") if n.strip()}
     names |= set(re.findall(r"\bfor\s+[\w,\s]*?([A-Za-z_][\w]*)\s+in\b", code))
     constants = set()
     for line in code.splitlines():
