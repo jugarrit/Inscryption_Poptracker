@@ -164,8 +164,11 @@ def build_inventories(rng, rules_module, singles, per_bucket=2):
     for _ in range(40000):
         inv = random_items(rng, singles)
         state = FakeState(inv)
-        key = (probe.act1_battle_points(state, True, True),
-               probe.act1_battle_points(state, True, False),
+        # Points are context-free now, so bucket on the total and on what each context withholds
+        # -- that is what still moves a threshold boundary.
+        key = (probe.act1_battle_points(state),
+               probe.act1_points_withheld(state, True, True),
+               probe.act1_points_withheld(state, False, False),
                min(inv.get("Progressive Grizzlies", 0), 3))
         bucket = buckets.setdefault(key, [])
         if len(bucket) < per_bucket:

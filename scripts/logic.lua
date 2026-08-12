@@ -119,40 +119,72 @@ ACT1_BEYOND_AREA1_VALUES = {
   {"myconode", 1}, {"bonealtarnode", 1}
 }
 
-function act1_battle_points(is_boss, is_beyond_area1)
+-- Pairs that pay only when both halves are held. The second table is worth nothing before the
+-- wetlands, where the base game has not started spawning those nodes.
+ACT1_PAIR_VALUES = {
+  {{"squirreltotem", "woodcarvernode"}, 3},
+  {{"smallerbackpack", "backpacknode"}, 1}
+}
+
+ACT1_BEYOND_AREA1_PAIR_VALUES = {
+  {{"sacstonesnode", "goobertnode"}, 1}
+}
+
+-- What everything the player holds is worth, before any fight decides what applies to it.
+function act1_battle_points()
   local points = 0
-  for _, entry in ipairs(ACT1_ITEM_VALUES) do
-    if has(entry[1]) then points = points + entry[2] end
+
+  for _, tbl in ipairs({ACT1_ITEM_VALUES, ACT1_BOSS_ITEM_VALUES,
+                        ACT1_REGULAR_ITEM_VALUES, ACT1_BEYOND_AREA1_VALUES}) do
+    for _, entry in ipairs(tbl) do
+      if has(entry[1]) then points = points + entry[2] end
+    end
   end
+
   for _, entry in ipairs(ACT1_PROGRESSIVE_VALUES) do
     local owned = count(entry[1])
     for copy, value in ipairs(entry[2]) do
       if owned >= copy then points = points + value end
     end
   end
-  for _, entry in ipairs(is_boss and ACT1_BOSS_ITEM_VALUES or ACT1_REGULAR_ITEM_VALUES) do
-    if has(entry[1]) then points = points + entry[2] end
-  end
-  if is_beyond_area1 then
-    -- The base game only spawns these nodes from the wetlands on, so they can only have
-    -- helped a battle in the wetlands or later.
-    if has("sacstonesnode") and has("goobertnode") then points = points + 1 end
-    for _, entry in ipairs(ACT1_BEYOND_AREA1_VALUES) do
-      if has(entry[1]) then points = points + entry[2] end
+
+  for _, tbl in ipairs({ACT1_PAIR_VALUES, ACT1_BEYOND_AREA1_PAIR_VALUES}) do
+    for _, entry in ipairs(tbl) do
+      if has(entry[1][1]) and has(entry[1][2]) then points = points + entry[2] end
     end
   end
-  if has("squirreltotem") and has("woodcarvernode") then points = points + 3 end
-  if has("smallerbackpack") and has("backpacknode") then points = points + 1 end
+
   return points
 end
 
+-- What this fight must not be paid with: the items belonging to the other kind of battle, and
+-- everything that does not exist yet before the wetlands. Its threshold rises by that much.
+function act1_points_withheld(is_boss, is_beyond_area1)
+  local withheld = 0
+
+  for _, entry in ipairs(is_boss and ACT1_REGULAR_ITEM_VALUES or ACT1_BOSS_ITEM_VALUES) do
+    if has(entry[1]) then withheld = withheld + entry[2] end
+  end
+
+  if not is_beyond_area1 then
+    for _, entry in ipairs(ACT1_BEYOND_AREA1_VALUES) do
+      if has(entry[1]) then withheld = withheld + entry[2] end
+    end
+    for _, entry in ipairs(ACT1_BEYOND_AREA1_PAIR_VALUES) do
+      if has(entry[1][1]) and has(entry[1][2]) then withheld = withheld + entry[2] end
+    end
+  end
+
+  return withheld
+end
+
 function act1_battle_requirements(amount, is_boss, is_beyond_area1)
-  return act1_battle_points(is_boss, is_beyond_area1) >= amount
+  return act1_battle_points() >= amount + act1_points_withheld(is_boss, is_beyond_area1)
 end
 
 -- What the named items are worth, asked of the points function itself rather than restated, so a
 -- change to any value, context table or pairing is picked up here for free.
-function act1_points_from(items, is_boss, is_beyond_area1)
+function act1_points_from(items)
   local allowed = {}
   for _, item in ipairs(items) do allowed[item] = true end
 
@@ -162,7 +194,7 @@ function act1_points_from(items, is_boss, is_beyond_area1)
   has = function(item, amount) return allowed[item] and real_has(item, amount) end
   count = function(item) return allowed[item] and real_count(item) or 0 end
 
-  local points = act1_battle_points(is_boss, is_beyond_area1)
+  local points = act1_battle_points()
 
   has, count = real_has, real_count
   return points
@@ -213,7 +245,7 @@ function a1_woodlands_later()
   end
   -- Candles and backpacks do nothing for these early fights, so the threshold rises by exactly
   -- the points they contribute, cancelling them back out.
-  local cancelled = act1_points_from(WOODLANDS_CANCELLED, false, false)
+  local cancelled = act1_points_from(WOODLANDS_CANCELLED)
   return act1_battle_requirements(3 + cancelled, false, false)
 end
 
