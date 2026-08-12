@@ -91,6 +91,13 @@ GRIZZLY_PENALTY = 10
 -- Worth points in general, but not this early, so the later woodlands hands their points back.
 WOODLANDS_CANCELLED = {"progcandle", "backpacknode"}
 
+-- The four kinds of Act 1 fight. Which one a rule gates decides what its points may come from:
+-- a boss ignores the regular-only items and vice versa, and the woodlands ignores the later nodes.
+WOODLANDS_BATTLE = {is_boss = false, is_beyond_area1 = false}
+WOODLANDS_BOSS = {is_boss = true, is_beyond_area1 = false}
+LATER_BATTLE = {is_boss = false, is_beyond_area1 = true}
+LATER_BOSS = {is_boss = true, is_beyond_area1 = true}
+
 ACT1_ITEM_VALUES = {
   {"hook", 1}, {"paintingclover", 1}, {"dagger", 1},
   {"woodcarvernode", 2}, {"backpacknode", 2},
@@ -159,14 +166,14 @@ end
 
 -- What this fight must not be paid with: the items belonging to the other kind of battle, and
 -- everything that does not exist yet before the wetlands. Its threshold rises by that much.
-function act1_points_withheld(is_boss, is_beyond_area1)
+function act1_points_withheld(fight)
   local withheld = 0
 
-  for _, entry in ipairs(is_boss and ACT1_REGULAR_ITEM_VALUES or ACT1_BOSS_ITEM_VALUES) do
+  for _, entry in ipairs(fight.is_boss and ACT1_REGULAR_ITEM_VALUES or ACT1_BOSS_ITEM_VALUES) do
     if has(entry[1]) then withheld = withheld + entry[2] end
   end
 
-  if not is_beyond_area1 then
+  if not fight.is_beyond_area1 then
     for _, entry in ipairs(ACT1_BEYOND_AREA1_VALUES) do
       if has(entry[1]) then withheld = withheld + entry[2] end
     end
@@ -178,8 +185,8 @@ function act1_points_withheld(is_boss, is_beyond_area1)
   return withheld
 end
 
-function act1_battle_requirements(amount, is_boss, is_beyond_area1)
-  return act1_battle_points() >= amount + act1_points_withheld(is_boss, is_beyond_area1)
+function act1_battle_requirements(amount, fight)
+  return act1_battle_points() >= amount + act1_points_withheld(fight)
 end
 
 -- What the named items are worth, asked of the points function itself rather than restated, so a
@@ -246,7 +253,7 @@ function a1_woodlands_later()
   -- Candles and backpacks do nothing for these early fights, so the threshold rises by exactly
   -- the points they contribute, cancelling them back out.
   local cancelled = act1_points_from(WOODLANDS_CANCELLED)
-  return act1_battle_requirements(3 + cancelled, false, false)
+  return act1_battle_requirements(3 + cancelled, WOODLANDS_BATTLE)
 end
 
 function a1_prospector()
@@ -255,7 +262,7 @@ function a1_prospector()
     return true
   end
   needed = needed + act1_grizzly_penalty(PROSPECTOR)
-  return act1_battle_requirements(needed, true, false) and a1_woodlands_later()
+  return act1_battle_requirements(needed, WOODLANDS_BOSS) and a1_woodlands_later()
     and bypass_grizzly_requirements(PROSPECTOR)
 end
 
@@ -264,7 +271,7 @@ function a1_wetlands()
   if needed == nil then
     return true
   end
-  return act1_battle_requirements(needed, false, true) and a1_prospector()
+  return act1_battle_requirements(needed, LATER_BATTLE) and a1_prospector()
 end
 
 function a1_angler()
@@ -273,7 +280,7 @@ function a1_angler()
     return true
   end
   needed = needed + act1_grizzly_penalty(ANGLER)
-  return act1_battle_requirements(needed, true, true) and bypass_grizzly_requirements(ANGLER)
+  return act1_battle_requirements(needed, LATER_BOSS) and bypass_grizzly_requirements(ANGLER)
 end
 
 function a1_snow_line()
@@ -281,7 +288,7 @@ function a1_snow_line()
   if needed == nil then
     return true
   end
-  return act1_battle_requirements(needed, false, true) and a1_angler()
+  return act1_battle_requirements(needed, LATER_BATTLE) and a1_angler()
 end
 
 function a1_trapper()
@@ -290,7 +297,7 @@ function a1_trapper()
     return true
   end
   needed = needed + act1_grizzly_penalty(TRAPPER)
-  return act1_battle_requirements(needed, true, true) and bypass_grizzly_requirements(TRAPPER)
+  return act1_battle_requirements(needed, LATER_BOSS) and bypass_grizzly_requirements(TRAPPER)
 end
 
 function a1_leshy()
@@ -298,7 +305,7 @@ function a1_leshy()
   if needed == nil then
     return true
   end
-  return act1_battle_requirements(needed, true, true) and a1_trapper()
+  return act1_battle_requirements(needed, LATER_BOSS) and a1_trapper()
 end
 
 -- Consumable checks are the items a run picks up off the map, which only exist while the
