@@ -88,9 +88,6 @@ PROSPECTOR, ANGLER, TRAPPER = 1, 2, 3
 -- How far a boss's points threshold rises while it keeps its grizzly phase.
 GRIZZLY_PENALTY = 10
 
--- Worth points in general, but not this early, so the later woodlands hands their points back.
-WOODLANDS_CANCELLED = {"progcandle", "backpacknode"}
-
 -- The four kinds of Act 1 fight. Which one a rule gates decides what its points may come from:
 -- a boss ignores the regular-only items and vice versa, and the woodlands ignores the later nodes.
 WOODLANDS_BATTLE = {is_boss = false, is_beyond_area1 = false}
@@ -139,13 +136,9 @@ ACT1_BEYOND_AREA1_PAIR_VALUES = {
 
 -- What the player's items are worth to this fight. A boss ignores the regular-only items and a
 -- regular battle ignores the boss-only ones; the woodlands ignores what does not spawn yet.
--- `ignoring` names anything else this particular fight gets nothing from.
-function act1_battle_points(fight, ignoring)
-  local skip = {}
-  for _, item in ipairs(ignoring or {}) do skip[item] = true end
-
+function act1_battle_points(fight)
   local function counts(item, needed)
-    return not skip[item] and has(item, needed)
+    return has(item, needed)
   end
 
   local points = 0
@@ -226,8 +219,7 @@ function a1_woodlands_later()
   if not (nodes_randomized() and challenges_randomized()) then
     return true
   end
-  -- Candles and backpacks do nothing for these early fights, so this one ignores them too.
-  return act1_battle_points(WOODLANDS_BATTLE, WOODLANDS_CANCELLED) >= 3
+  return act1_battle_points(WOODLANDS_BATTLE) >= 3
 end
 
 function a1_prospector()
