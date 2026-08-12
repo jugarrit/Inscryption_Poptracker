@@ -137,78 +137,49 @@ ACT1_BEYOND_AREA1_PAIR_VALUES = {
   {{"sacstonesnode", "goobertnode"}, 1}
 }
 
--- What everything the player holds is worth, before any fight decides what applies to it.
-function act1_battle_points()
+-- What the player's items are worth to this fight. A boss ignores the regular-only items and a
+-- regular battle ignores the boss-only ones; the woodlands ignores what does not spawn yet.
+-- `ignoring` names anything else this particular fight gets nothing from.
+function act1_battle_points(fight, ignoring)
+  local skip = {}
+  for _, item in ipairs(ignoring or {}) do skip[item] = true end
+
+  local function counts(item, needed)
+    return not skip[item] and has(item, needed)
+  end
+
   local points = 0
 
-  for _, tbl in ipairs({ACT1_ITEM_VALUES, ACT1_BOSS_ITEM_VALUES,
-                        ACT1_REGULAR_ITEM_VALUES, ACT1_BEYOND_AREA1_VALUES}) do
-    for _, entry in ipairs(tbl) do
-      if has(entry[1]) then points = points + entry[2] end
-    end
+  for _, entry in ipairs(ACT1_ITEM_VALUES) do
+    if counts(entry[1]) then points = points + entry[2] end
   end
 
   for _, entry in ipairs(ACT1_PROGRESSIVE_VALUES) do
-    local owned = count(entry[1])
     for copy, value in ipairs(entry[2]) do
-      if owned >= copy then points = points + value end
+      if counts(entry[1], copy) then points = points + value end
     end
   end
 
-  for _, tbl in ipairs({ACT1_PAIR_VALUES, ACT1_BEYOND_AREA1_PAIR_VALUES}) do
-    for _, entry in ipairs(tbl) do
-      if has(entry[1][1]) and has(entry[1][2]) then points = points + entry[2] end
-    end
+  for _, entry in ipairs(fight.is_boss and ACT1_BOSS_ITEM_VALUES or ACT1_REGULAR_ITEM_VALUES) do
+    if counts(entry[1]) then points = points + entry[2] end
   end
 
-  return points
-end
-
--- What this fight must not be paid with: the items belonging to the other kind of battle, and
--- everything that does not exist yet before the wetlands. Its threshold rises by that much.
-function act1_points_withheld(fight)
-  local withheld = 0
-
-  for _, entry in ipairs(fight.is_boss and ACT1_REGULAR_ITEM_VALUES or ACT1_BOSS_ITEM_VALUES) do
-    if has(entry[1]) then withheld = withheld + entry[2] end
+  for _, entry in ipairs(ACT1_PAIR_VALUES) do
+    if counts(entry[1][1]) and counts(entry[1][2]) then points = points + entry[2] end
   end
 
-  if not fight.is_beyond_area1 then
+  if fight.is_beyond_area1 then
+    -- The base game only spawns these nodes from the wetlands on, so they can only have
+    -- helped a battle in the wetlands or later.
     for _, entry in ipairs(ACT1_BEYOND_AREA1_VALUES) do
-      if has(entry[1]) then withheld = withheld + entry[2] end
+      if counts(entry[1]) then points = points + entry[2] end
     end
+
     for _, entry in ipairs(ACT1_BEYOND_AREA1_PAIR_VALUES) do
-      if has(entry[1][1]) and has(entry[1][2]) then withheld = withheld + entry[2] end
+      if counts(entry[1][1]) and counts(entry[1][2]) then points = points + entry[2] end
     end
   end
 
-  return withheld
-end
-
--- The bar a fight actually sets, in one expression: what it was tuned to, plus the points it must
--- not be paid with, plus a boss's grizzly penalty and anything too early to help.
-function act1_threshold(base, fight, grizzly, cancels)
-  local needed = base + act1_points_withheld(fight)
-  if grizzly then needed = needed + act1_grizzly_penalty(grizzly) end
-  if cancels then needed = needed + act1_points_from(cancels) end
-  return needed
-end
-
--- What the named items are worth, asked of the points function itself rather than restated, so a
--- change to any value, context table or pairing is picked up here for free.
-function act1_points_from(items)
-  local allowed = {}
-  for _, item in ipairs(items) do allowed[item] = true end
-
-  -- The points function reads the tracker through these, so narrowing them to the named items
-  -- is what makes it score those alone. Restored before returning.
-  local real_has, real_count = has, count
-  has = function(item, amount) return allowed[item] and real_has(item, amount) end
-  count = function(item) return allowed[item] and real_count(item) or 0 end
-
-  local points = act1_battle_points()
-
-  has, count = real_has, real_count
   return points
 end
 
@@ -255,9 +226,8 @@ function a1_woodlands_later()
   if not (nodes_randomized() and challenges_randomized()) then
     return true
   end
-  -- Candles and backpacks do nothing for these early fights, so their points are cancelled.
-  local needed = act1_threshold(3, WOODLANDS_BATTLE, nil, WOODLANDS_CANCELLED)
-  return act1_battle_points() >= needed
+  -- Candles and backpacks do nothing for these early fights, so this one ignores them too.
+  return act1_battle_points(WOODLANDS_BATTLE, WOODLANDS_CANCELLED) >= 3
 end
 
 function a1_prospector()
@@ -265,8 +235,8 @@ function a1_prospector()
   if base == nil then
     return true
   end
-  local needed = act1_threshold(base, WOODLANDS_BOSS, PROSPECTOR)
-  return act1_battle_points() >= needed and a1_woodlands_later()
+  local needed = base + act1_grizzly_penalty(PROSPECTOR)
+  return act1_battle_points(WOODLANDS_BOSS) >= needed and a1_woodlands_later()
     and bypass_grizzly_requirements(PROSPECTOR)
 end
 
@@ -275,8 +245,7 @@ function a1_wetlands()
   if base == nil then
     return true
   end
-  local needed = act1_threshold(base, LATER_BATTLE, nil)
-  return act1_battle_points() >= needed and a1_prospector()
+  return act1_battle_points(LATER_BATTLE) >= base and a1_prospector()
 end
 
 function a1_angler()
@@ -284,8 +253,8 @@ function a1_angler()
   if base == nil then
     return true
   end
-  local needed = act1_threshold(base, LATER_BOSS, ANGLER)
-  return act1_battle_points() >= needed and bypass_grizzly_requirements(ANGLER)
+  local needed = base + act1_grizzly_penalty(ANGLER)
+  return act1_battle_points(LATER_BOSS) >= needed and bypass_grizzly_requirements(ANGLER)
 end
 
 function a1_snow_line()
@@ -293,8 +262,7 @@ function a1_snow_line()
   if base == nil then
     return true
   end
-  local needed = act1_threshold(base, LATER_BATTLE, nil)
-  return act1_battle_points() >= needed and a1_angler()
+  return act1_battle_points(LATER_BATTLE) >= base and a1_angler()
 end
 
 function a1_trapper()
@@ -302,8 +270,8 @@ function a1_trapper()
   if base == nil then
     return true
   end
-  local needed = act1_threshold(base, LATER_BOSS, TRAPPER)
-  return act1_battle_points() >= needed and bypass_grizzly_requirements(TRAPPER)
+  local needed = base + act1_grizzly_penalty(TRAPPER)
+  return act1_battle_points(LATER_BOSS) >= needed and bypass_grizzly_requirements(TRAPPER)
 end
 
 function a1_leshy()
@@ -311,8 +279,7 @@ function a1_leshy()
   if base == nil then
     return true
   end
-  local needed = act1_threshold(base, LATER_BOSS, nil)
-  return act1_battle_points() >= needed and a1_trapper()
+  return act1_battle_points(LATER_BOSS) >= base and a1_trapper()
 end
 
 -- Consumable checks are the items a run picks up off the map, which only exist while the

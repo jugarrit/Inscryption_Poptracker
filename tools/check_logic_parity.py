@@ -166,9 +166,10 @@ def build_inventories(rng, rules_module, singles, per_bucket=2):
         state = FakeState(inv)
         # Points are context-free now, so bucket on the total and on what each context withholds
         # -- that is what still moves a threshold boundary.
-        key = (probe.act1_battle_points(state),
-               probe.act1_points_withheld(state, rules_module.LATER_BOSS),
-               probe.act1_points_withheld(state, rules_module.WOODLANDS_BATTLE),
+        # Bucket on what each kind of fight sees, since that is what moves a threshold boundary.
+        key = (probe.act1_battle_points(state, rules_module.LATER_BOSS),
+               probe.act1_battle_points(state, rules_module.LATER_BATTLE),
+               probe.act1_battle_points(state, rules_module.WOODLANDS_BOSS),
                min(inv.get("Progressive Grizzlies", 0), 3))
         bucket = buckets.setdefault(key, [])
         if len(bucket) < per_bucket:

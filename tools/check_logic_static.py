@@ -31,6 +31,7 @@ def main():
     names = set()
     for decl in re.findall(r"\blocal\s+([A-Za-z_][\w,\s]*?)\s*(?:=|$)", code, re.M):
         names |= {n.strip() for n in decl.split(",") if n.strip()}
+    names |= set(re.findall(r"\blocal\s+function\s+([A-Za-z_][\w]*)", code))
     names |= set(re.findall(r"\bfor\s+[\w,\s]*?([A-Za-z_][\w]*)\s+in\b", code))
     constants = set()
     for line in code.splitlines():
