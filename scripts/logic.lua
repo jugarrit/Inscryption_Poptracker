@@ -185,8 +185,13 @@ function act1_points_withheld(fight)
   return withheld
 end
 
-function act1_battle_requirements(amount, fight)
-  return act1_battle_points() >= amount + act1_points_withheld(fight)
+-- The bar a fight actually sets, in one expression: what it was tuned to, plus the points it must
+-- not be paid with, plus a boss's grizzly penalty and anything too early to help.
+function act1_threshold(base, fight, grizzly, cancels)
+  local needed = base + act1_points_withheld(fight)
+  if grizzly then needed = needed + act1_grizzly_penalty(grizzly) end
+  if cancels then needed = needed + act1_points_from(cancels) end
+  return needed
 end
 
 -- What the named items are worth, asked of the points function itself rather than restated, so a
@@ -250,62 +255,64 @@ function a1_woodlands_later()
   if not (nodes_randomized() and challenges_randomized()) then
     return true
   end
-  -- Candles and backpacks do nothing for these early fights, so the threshold rises by exactly
-  -- the points they contribute, cancelling them back out.
-  local cancelled = act1_points_from(WOODLANDS_CANCELLED)
-  return act1_battle_requirements(3 + cancelled, WOODLANDS_BATTLE)
+  -- Candles and backpacks do nothing for these early fights, so their points are cancelled.
+  local needed = act1_threshold(3, WOODLANDS_BATTLE, nil, WOODLANDS_CANCELLED)
+  return act1_battle_points() >= needed
 end
 
 function a1_prospector()
-  local needed = act1_points_needed({both = 6, challenges_only = 4, nodes_only = 4})
-  if needed == nil then
+  local base = act1_points_needed({both = 6, challenges_only = 4, nodes_only = 4})
+  if base == nil then
     return true
   end
-  needed = needed + act1_grizzly_penalty(PROSPECTOR)
-  return act1_battle_requirements(needed, WOODLANDS_BOSS) and a1_woodlands_later()
+  local needed = act1_threshold(base, WOODLANDS_BOSS, PROSPECTOR)
+  return act1_battle_points() >= needed and a1_woodlands_later()
     and bypass_grizzly_requirements(PROSPECTOR)
 end
 
 function a1_wetlands()
-  local needed = act1_points_needed({both = 13, challenges_only = 8, nodes_only = 5})
-  if needed == nil then
+  local base = act1_points_needed({both = 13, challenges_only = 8, nodes_only = 5})
+  if base == nil then
     return true
   end
-  return act1_battle_requirements(needed, LATER_BATTLE) and a1_prospector()
+  local needed = act1_threshold(base, LATER_BATTLE, nil)
+  return act1_battle_points() >= needed and a1_prospector()
 end
 
 function a1_angler()
-  local needed = act1_points_needed({both = 18, challenges_only = 13, nodes_only = 8})
-  if needed == nil then
+  local base = act1_points_needed({both = 18, challenges_only = 13, nodes_only = 8})
+  if base == nil then
     return true
   end
-  needed = needed + act1_grizzly_penalty(ANGLER)
-  return act1_battle_requirements(needed, LATER_BOSS) and bypass_grizzly_requirements(ANGLER)
+  local needed = act1_threshold(base, LATER_BOSS, ANGLER)
+  return act1_battle_points() >= needed and bypass_grizzly_requirements(ANGLER)
 end
 
 function a1_snow_line()
-  local needed = act1_points_needed({both = 23, challenges_only = 17, nodes_only = 8})
-  if needed == nil then
+  local base = act1_points_needed({both = 23, challenges_only = 17, nodes_only = 8})
+  if base == nil then
     return true
   end
-  return act1_battle_requirements(needed, LATER_BATTLE) and a1_angler()
+  local needed = act1_threshold(base, LATER_BATTLE, nil)
+  return act1_battle_points() >= needed and a1_angler()
 end
 
 function a1_trapper()
-  local needed = act1_points_needed({both = 27, challenges_only = 22, nodes_only = 12})
-  if needed == nil then
+  local base = act1_points_needed({both = 27, challenges_only = 22, nodes_only = 12})
+  if base == nil then
     return true
   end
-  needed = needed + act1_grizzly_penalty(TRAPPER)
-  return act1_battle_requirements(needed, LATER_BOSS) and bypass_grizzly_requirements(TRAPPER)
+  local needed = act1_threshold(base, LATER_BOSS, TRAPPER)
+  return act1_battle_points() >= needed and bypass_grizzly_requirements(TRAPPER)
 end
 
 function a1_leshy()
-  local needed = act1_points_needed({both = 33, challenges_only = 27, nodes_only = 12})
-  if needed == nil then
+  local base = act1_points_needed({both = 33, challenges_only = 27, nodes_only = 12})
+  if base == nil then
     return true
   end
-  return act1_battle_requirements(needed, LATER_BOSS) and a1_trapper()
+  local needed = act1_threshold(base, LATER_BOSS, nil)
+  return act1_battle_points() >= needed and a1_trapper()
 end
 
 -- Consumable checks are the items a run picks up off the map, which only exist while the
