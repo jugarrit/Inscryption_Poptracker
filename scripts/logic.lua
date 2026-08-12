@@ -98,6 +98,18 @@ WOODLANDS_BOSS = {is_boss = true, is_beyond_area1 = false}
 LATER_BATTLE = {is_boss = false, is_beyond_area1 = true}
 LATER_BOSS = {is_boss = true, is_beyond_area1 = true}
 
+-- Every Act 1 fight in one place. The three thresholds are what that fight was tuned to under each
+-- combination of randomize_nodes and randomize_challenges; nil there means it asks nothing at all.
+ACT1_FIGHTS = {
+  woodlands  = {fight = WOODLANDS_BATTLE, both = 3,                                cancels = WOODLANDS_CANCELLED},
+  prospector = {fight = WOODLANDS_BOSS,   both = 6,  chal = 4,  nodes = 4,  grizzly = PROSPECTOR, after = "woodlands"},
+  wetlands   = {fight = LATER_BATTLE,     both = 13, chal = 8,  nodes = 5,                        after = "prospector"},
+  angler     = {fight = LATER_BOSS,       both = 18, chal = 13, nodes = 8,  grizzly = ANGLER},
+  snow_line  = {fight = LATER_BATTLE,     both = 23, chal = 17, nodes = 8,                        after = "angler"},
+  trapper    = {fight = LATER_BOSS,       both = 27, chal = 22, nodes = 12, grizzly = TRAPPER},
+  leshy      = {fight = LATER_BOSS,       both = 33, chal = 27, nodes = 12,                       after = "trapper"}
+}
+
 ACT1_ITEM_VALUES = {
   {"hook", 1}, {"paintingclover", 1}, {"dagger", 1},
   {"woodcarvernode", 2}, {"backpacknode", 2},
@@ -212,15 +224,15 @@ function act1_points_from(items)
   return points
 end
 
--- Thresholds are tuned per option combination. nil means neither option is on, so Act 1 runs
--- at vanilla difficulty and its battles are free.
-function act1_points_needed(thresholds)
+-- The threshold this fight was tuned to for the options in play. nil means neither option is on --
+-- Act 1 runs at vanilla difficulty -- or that this fight asks nothing under them.
+function act1_points_needed(rule)
   if nodes_randomized() and challenges_randomized() then
-    return thresholds.both
+    return rule.both
   elseif challenges_randomized() then
-    return thresholds.challenges_only
+    return rule.chal
   elseif nodes_randomized() then
-    return thresholds.nodes_only
+    return rule.nodes
   end
   return nil
 end
@@ -251,68 +263,53 @@ function bypass_grizzly_requirements(boss)
   return has("backpacknode")
 end
 
-function a1_woodlands_later()
-  if not (nodes_randomized() and challenges_randomized()) then
+-- Every Act 1 battle rule is this, over its row of the table above.
+function act1_fight_reachable(name)
+  local rule = ACT1_FIGHTS[name]
+
+  local base = act1_points_needed(rule)
+  if base == nil then
     return true
   end
-  -- Candles and backpacks do nothing for these early fights, so their points are cancelled.
-  local needed = act1_threshold(3, WOODLANDS_BATTLE, nil, WOODLANDS_CANCELLED)
-  return act1_battle_points() >= needed
+
+  local needed = act1_threshold(base, rule.fight, rule.grizzly, rule.cancels)
+  if act1_battle_points() < needed then
+    return false
+  end
+
+  if rule.after and not act1_fight_reachable(rule.after) then
+    return false
+  end
+
+  return rule.grizzly == nil or bypass_grizzly_requirements(rule.grizzly)
+end
+
+function a1_woodlands_later()
+  return act1_fight_reachable("woodlands")
 end
 
 function a1_prospector()
-  local base = act1_points_needed({both = 6, challenges_only = 4, nodes_only = 4})
-  if base == nil then
-    return true
-  end
-  local needed = act1_threshold(base, WOODLANDS_BOSS, PROSPECTOR)
-  return act1_battle_points() >= needed and a1_woodlands_later()
-    and bypass_grizzly_requirements(PROSPECTOR)
+  return act1_fight_reachable("prospector")
 end
 
 function a1_wetlands()
-  local base = act1_points_needed({both = 13, challenges_only = 8, nodes_only = 5})
-  if base == nil then
-    return true
-  end
-  local needed = act1_threshold(base, LATER_BATTLE, nil)
-  return act1_battle_points() >= needed and a1_prospector()
+  return act1_fight_reachable("wetlands")
 end
 
 function a1_angler()
-  local base = act1_points_needed({both = 18, challenges_only = 13, nodes_only = 8})
-  if base == nil then
-    return true
-  end
-  local needed = act1_threshold(base, LATER_BOSS, ANGLER)
-  return act1_battle_points() >= needed and bypass_grizzly_requirements(ANGLER)
+  return act1_fight_reachable("angler")
 end
 
 function a1_snow_line()
-  local base = act1_points_needed({both = 23, challenges_only = 17, nodes_only = 8})
-  if base == nil then
-    return true
-  end
-  local needed = act1_threshold(base, LATER_BATTLE, nil)
-  return act1_battle_points() >= needed and a1_angler()
+  return act1_fight_reachable("snow_line")
 end
 
 function a1_trapper()
-  local base = act1_points_needed({both = 27, challenges_only = 22, nodes_only = 12})
-  if base == nil then
-    return true
-  end
-  local needed = act1_threshold(base, LATER_BOSS, TRAPPER)
-  return act1_battle_points() >= needed and bypass_grizzly_requirements(TRAPPER)
+  return act1_fight_reachable("trapper")
 end
 
 function a1_leshy()
-  local base = act1_points_needed({both = 33, challenges_only = 27, nodes_only = 12})
-  if base == nil then
-    return true
-  end
-  local needed = act1_threshold(base, LATER_BOSS, nil)
-  return act1_battle_points() >= needed and a1_trapper()
+  return act1_fight_reachable("leshy")
 end
 
 -- Consumable checks are the items a run picks up off the map, which only exist while the
