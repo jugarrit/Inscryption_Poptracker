@@ -432,6 +432,20 @@ function a3_archivist()
   return a3_filthy_corpse_world() and has("quill")
 end
 
+-- The file rooms themselves are ungated, but their node stays inactive until the
+-- Archivist has asked to browse a file, so each one wants its area and the Archivist.
+function a3_forest_file()
+  return a3_battery() and a3_archivist()
+end
+
+function a3_bridge_file()
+  return a3_bridge() and a3_archivist()
+end
+
+function a3_tower_file()
+  return a3_gaudy_gem_land() and a3_archivist()
+end
+
 function a3_pelts(amount)
   return has("holopelt", amount) and a3_bastion()
 end
