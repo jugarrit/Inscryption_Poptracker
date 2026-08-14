@@ -7,7 +7,19 @@ Python that can import the apworld (the Archipelago venv):
 
     Archipelago/.venv/bin/python tools/check_logic_parity.py ../Archipelago/worlds/inscryption_beta
 
-Two things this learned the hard way:
+Three passes run. The first two compare the named rules of PAIRS, sweeping the options and
+then the Act 1 thresholds. The third compares whole locations, because the first two cannot
+see the pack's JSON: a location's access_rules list is an OR and its root's, group's and own
+lists are ANDed, so every rule it names can agree and the location still ask for the wrong
+combination. That is not hypothetical -- an Archivist requirement was once added as a third
+entry beside the area rule and $release_act3, which ORed it in and made four locations more
+permissive rather than less, with both other checkers passing.
+
+Three things this learned the hard way:
+
+* A rule missing from PAIRS is not checked, and nothing says so. The first two passes report
+  how many rules they compared for that reason; if that number does not move when you add a
+  rule, the rule is not being compared.
 
 * Inventories are bucketed by their Act 1 points total rather than sampled freely. The Act 1
   rules are thresholds on that total, so a random inventory almost never lands on a boundary
@@ -27,6 +39,8 @@ import subprocess
 import sys
 import tempfile
 from types import SimpleNamespace
+
+import check_logic_sync
 
 PACK = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -62,6 +76,9 @@ PAIRS = [
     ("has_gaudy_gem_land_requirements", "a3_gaudy_gem_land", None),
     ("has_resplendent_bastion_requirements", "a3_bastion", None),
     ("has_archivist_requirements", "a3_archivist", None),
+    ("has_forest_file_requirements", "a3_forest_file", None),
+    ("has_bridge_file_requirements", "a3_bridge_file", None),
+    ("has_tower_file_requirements", "a3_tower_file", None),
     ("has_transcendence_requirements", "a3_transcendence", None),
     ("has_mycologists_boss_requirements", "a3_mycologists", None),
     ("has_bone_lord_room_requirements", "a3_bone_lord_room", None),
@@ -236,6 +253,137 @@ def run_pass(label, grid, inventories, rules_module, code, kind, tmp):
     return 1
 
 
+def parse_level(entries):
+    """One access_rules list -> an OR of ANDed conditions, as a list of lists of (fn, arg)."""
+    group = []
+    for entry in entries:
+        conds = []
+        for cond in entry.split(","):
+            # "$a3_pelts|3" passes a count, "$has|dagger" an item code, and the pack defines
+            # its own has(), so both are just a lua global called with one argument.
+            fn, _, arg = cond.strip().lstrip("$").partition("|")
+            conds.append((fn, int(arg) if arg.isdigit() else arg or None))
+        group.append(conds)
+    return group
+
+
+def pack_location_exprs():
+    """Pack section path -> the expression PopTracker evaluates to decide reachability.
+
+    Each level's access_rules list is an OR of its entries, an entry is an AND of its
+    comma-separated conditions, and a section's own list, its group's and its root's are
+    ANDed together. Getting that shape wrong is exactly what the rule-by-rule pass above
+    cannot see, since every rule in it can be individually correct while the location that
+    composes them asks for the wrong combination.
+    """
+    out = {}
+    for act in ("Act1", "Act2", "Act3"):
+        for root in load_json(os.path.join(PACK, "locations", f"{act}.json")):
+            root_group = parse_level(root.get("access_rules", []))
+            for group in root.get("children", []):
+                group_group = parse_level(group.get("access_rules", []))
+                for sec in group.get("sections", []):
+                    sec_group = parse_level(sec.get("access_rules", []))
+                    path = f"@{root['name']}/{group['name']}/{sec['name']}"
+                    out[path] = [g for g in (root_group, group_group, sec_group) if g]
+    return out
+
+
+def apworld_location_rule(rules, ap_name, region, conditional, state, release):
+    """What Rules.py grants one location: its region's rule and its own, plus the act-release
+    branch apply_act_release_rules ors on. Region access is not part of that or, in either
+    implementation -- releasing an act does not let you reach a locked one."""
+    region_rule = rules.region_rules.get(region)
+    if region_rule is not None and not region_rule(state):
+        return False
+    if ap_name in conditional:
+        own = python_rule(rules, f"painting:{ap_name[-1]}", None, state)
+    else:
+        own_rule = rules.location_rules.get(ap_name)
+        own = True if own_rule is None else own_rule(state)
+    if own or not release:
+        return bool(own)
+    beat = {"Act 1": rules.beat_act1_requirements, "Act 2": rules.beat_act2_requirements,
+            "Act 3": rules.beat_act3_requirements}.get(ap_name.split(" - ")[0])
+    return bool(beat and beat(state))
+
+
+def run_location_pass(world, grid, inventories, rules_module, code, kind, tmp):
+    """Compare each location's whole expression, not just the named rules inside it."""
+    ap_rules, conditional = check_logic_sync.apworld_rules(world)
+    names, ap_regions = check_logic_sync.apworld_locations(world)
+    mapping, exprs = check_logic_sync.id_to_path(), pack_location_exprs()
+
+    locations, problems = [], []
+    for i, ap_name in enumerate(names):
+        path = mapping.get(147000 + i)
+        if path is None or path not in exprs:
+            problems.append(f"no pack section for {ap_name}")
+            continue
+        locations.append((ap_name, ap_regions[ap_name], exprs[path]))
+
+    conds = sorted({c for _, _, expr in locations for g in expr for e in g for c in e})
+    index = {c: n for n, c in enumerate(conds)}
+
+    opt_names, values = list(grid), list(grid.values())
+    cases, meta = [], []
+    for combo in itertools.product(*values):
+        opts = {**DEFAULT_OPTS, **dict(zip(opt_names, combo))}
+        release = opts.get("releaseonact", 0)
+        lua_opts = dict(opts, act1on=1, act2on=1, act3on=1, releaseonact=release, goal=2)
+        for inv in inventories:
+            cases.append((lua_opts, {code[item]: n for item, n in inv.items()}))
+            meta.append((opts, inv, release))
+
+    rules_lua = ",".join(f'{{fn="{fn}"}}' if arg is None else
+                         f'{{fn="{fn}",arg={arg if isinstance(arg, int) else chr(34) + arg + chr(34)}}}'
+                         for fn, arg in conds)
+    cases_path = os.path.join(tmp, "locations.lua")
+    with open(cases_path, "w", encoding="utf-8") as f:
+        f.write("return {rules={" + rules_lua + "},cases={")
+        f.write(",".join(f"{{opts={lua_literal(o)},items={lua_literal(i)}}}" for o, i in cases))
+        f.write("}}\n")
+    with open(cases_path + ".types", "w", encoding="utf-8") as f:
+        f.write("return " + lua_literal(kind) + "\n")
+
+    print(f"locations: {len(cases)} cases x {len(locations)} locations = "
+          f"{len(cases) * len(locations)} evaluations")
+    driver = os.path.join(PACK, "tools", "logic_driver.lua")
+    proc = subprocess.run(["lua", driver, PACK, cases_path], capture_output=True, text=True)
+    if proc.returncode != 0:
+        print("  lua failed:\n" + proc.stderr[:2000])
+        return 1
+    rows = proc.stdout.strip().split("\n")
+    if len(rows) != len(cases):
+        print(f"  driver returned {len(rows)} rows for {len(cases)} cases")
+        return 1
+
+    mismatches = {}
+    for row, (opts, inv, release) in zip(rows, meta):
+        rules = rules_module.InscryptionRules(make_world(opts))
+        state = FakeState(inv)
+        got = [c == "1" for c in row]
+        for ap_name, region, expr in locations:
+            pack = all(any(all(got[index[c]] for c in entry) for entry in group)
+                       for group in expr)
+            want = apworld_location_rule(rules, ap_name, region, conditional, state, release)
+            if pack != want:
+                mismatches.setdefault(ap_name, []).append((opts, inv, pack, want))
+
+    if not mismatches and not problems:
+        print(f"  all {len(locations)} locations agree")
+        return 0
+    for p in problems:
+        print(f"  {p}")
+    if mismatches:
+        print(f"  FAILED: {len(mismatches)} locations disagree")
+        for name, examples in sorted(mismatches.items()):
+            opts, inv, pack, want = examples[0]
+            print(f"    {name}: {len(examples)} cases, pack={pack} apworld={want}, e.g. opts={opts}")
+            print(f"        items={inv}")
+    return 1
+
+
 def main():
     if len(sys.argv) != 2:
         print(__doc__)
@@ -269,6 +417,14 @@ def main():
                              {"randnodes": (0, 1), "randchallenges": (0, 1, 2),
                               "paintingbalance": (0, 1, 2)},
                              inventories, rules_module, code, kind, tmp)
+        # The third pass is the only one that reads the pack's JSON: the two above compare
+        # named rules, which stay correct even when a location combines them wrongly.
+        failures += run_location_pass(sys.argv[1],
+                                      {"randnodes": (0, 1), "randchallenges": (0, 1, 2),
+                                       "act2bridge": (0, 1, 2), "act3overhaul": (0, 1),
+                                       "actunlocks": (0, 1, 2), "epitaphtype": (0, 1, 2),
+                                       "paintingbalance": (0, 1, 2), "releaseonact": (0, 1)},
+                                      inventories[:6], rules_module, code, kind, tmp)
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
 

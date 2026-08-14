@@ -432,6 +432,20 @@ function a3_archivist()
   return a3_filthy_corpse_world() and has("quill")
 end
 
+-- The file rooms themselves are ungated, but their node stays inactive until the
+-- Archivist has asked to browse a file, so each one wants its area and the Archivist.
+function a3_forest_file()
+  return a3_battery() and a3_archivist()
+end
+
+function a3_bridge_file()
+  return a3_bridge() and a3_archivist()
+end
+
+function a3_tower_file()
+  return a3_gaudy_gem_land() and a3_archivist()
+end
+
 function a3_pelts(amount)
   return has("holopelt", amount) and a3_bastion()
 end
@@ -513,11 +527,13 @@ function act2_access()
   return true
 end
 
+-- Beating the act means beating all four Scrybes, so it composes each boss's own
+-- rule rather than restating the items. That is what carries the bridge.
 function beat_act2()
   if not flag("act2on") then
     return true
   end
-  return act2_access() and has_all_epitaphs() and has("camera") and has("meat") and has("monocle")
+  return act2_access() and a2_forest() and a2_grimora() and a2_tower() and a2_bridge()
 end
 
 function act3_access()

@@ -355,7 +355,7 @@
 					{
 						"name": "Luke's File Entry",
 						"access_rules": [
-							"$a3_battery",
+							"$a3_forest_file",
 							"$release_act3"
 						],
 						"item_count": 1
@@ -518,7 +518,7 @@
 					{
 						"name": "Luke's File Entry",
 						"access_rules": [
-							"$a3_bridge",
+							"$a3_bridge_file",
 							"$release_act3"
 						],
 						"item_count": 1
@@ -538,7 +538,7 @@
 					{
 						"name": "Luke's File Entry",
 						"access_rules": [
-							"$a3_bridge",
+							"$a3_bridge_file",
 							"$release_act3"
 						],
 						"item_count": 1
@@ -644,7 +644,7 @@
 					{
 						"name": "Luke's File Entry",
 						"access_rules": [
-							"$a3_gaudy_gem_land",
+							"$a3_tower_file",
 							"$release_act3"
 						],
 						"item_count": 1
