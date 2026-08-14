@@ -215,6 +215,12 @@
 		"img": "images/options/act3overhaul_on.png"
 	},
 	{
+		"name": "Release On Act Completion",
+		"codes": "releaseonact",
+		"type": "toggle",
+		"img": "images/options/releaseonact_on.png"
+	},
+	{
 		"name": "Randomize Shortcuts",
 		"codes": "randshortcuts",
 		"type": "progressive",

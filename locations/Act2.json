@@ -25,21 +25,24 @@
 					{
 						"name": "Chest",
 						"access_rules": [
-							"$a2_right_side"
+							"$a2_right_side",
+							"$release_act2"
 						],
 						"item_count": 1
 					},
 					{
 						"name": "Battle Prospector",
 						"access_rules": [
-							"$a2_forest"
+							"$a2_forest",
+							"$release_act2"
 						],
 						"item_count": 1
 					},
 					{
 						"name": "Battle Angler",
 						"access_rules": [
-							"$a2_forest"
+							"$a2_forest",
+							"$release_act2"
 						],
 						"item_count": 1
 					}
@@ -58,28 +61,32 @@
 					{
 						"name": "Camera",
 						"access_rules": [
-							"$a2_right_side"
+							"$a2_right_side",
+							"$release_act2"
 						],
 						"item_count": 1
 					},
 					{
 						"name": "Safe",
 						"access_rules": [
-							"$a2_right_side"
+							"$a2_right_side",
+							"$release_act2"
 						],
 						"item_count": 1
 					},
 					{
 						"name": "Drawer",
 						"access_rules": [
-							"$a2_right_side"
+							"$a2_right_side",
+							"$release_act2"
 						],
 						"item_count": 1
 					},
 					{
 						"name": "Boss Leshy",
 						"access_rules": [
-							"$a2_forest"
+							"$a2_forest",
+							"$release_act2"
 						],
 						"item_count": 1
 					}
@@ -98,7 +105,8 @@
 					{
 						"name": "Chest",
 						"access_rules": [
-							"$a2_forest"
+							"$a2_forest",
+							"$release_act2"
 						],
 						"item_count": 1
 					}
@@ -117,7 +125,8 @@
 					{
 						"name": "Battle Trapper",
 						"access_rules": [
-							"$a2_forest"
+							"$a2_forest",
+							"$release_act2"
 						],
 						"item_count": 1
 					}
@@ -133,7 +142,8 @@
 					}
 				],
 				"access_rules": [
-					"$a2_right_side"
+					"$a2_right_side",
+					"$release_act2"
 				],
 				"sections": [
 					{
@@ -159,7 +169,8 @@
 					{
 						"name": "Holo Key",
 						"access_rules": [
-							"$a2_tower_and_right"
+							"$a2_tower_and_right",
+							"$release_act2"
 						],
 						"item_count": 1
 					}
@@ -175,7 +186,8 @@
 					}
 				],
 				"access_rules": [
-					"$a2_right_side"
+					"$a2_right_side",
+					"$release_act2"
 				],
 				"sections": [
 					{
@@ -233,7 +245,8 @@
 					{
 						"name": "Boss Grimora",
 						"access_rules": [
-							"$a2_grimora"
+							"$a2_grimora",
+							"$release_act2"
 						],
 						"item_count": 1
 					}
@@ -252,7 +265,8 @@
 					{
 						"name": "Epitaph Piece 7",
 						"access_rules": [
-							"$a2_right_side"
+							"$a2_right_side",
+							"$release_act2"
 						],
 						"item_count": 1
 					}
@@ -271,7 +285,8 @@
 					{
 						"name": "Epitaph Piece 4",
 						"access_rules": [
-							"$a2_right_side"
+							"$a2_right_side",
+							"$release_act2"
 						],
 						"item_count": 1
 					}
@@ -287,7 +302,8 @@
 					}
 				],
 				"access_rules": [
-					"$a2_bone_lord_stairs"
+					"$a2_bone_lord_stairs",
+					"$release_act2"
 				],
 				"sections": [
 					{
@@ -317,21 +333,24 @@
 					{
 						"name": "Chest",
 						"access_rules": [
-							"$a2_bridge"
+							"$a2_bridge",
+							"$release_act2"
 						],
 						"item_count": 1
 					},
 					{
 						"name": "Monocle",
 						"access_rules": [
-							"$a2_bridge"
+							"$a2_bridge",
+							"$release_act2"
 						],
 						"item_count": 1
 					},
 					{
 						"name": "Battle Goobert",
 						"access_rules": [
-							"$a2_tower"
+							"$a2_tower",
+							"$release_act2"
 						],
 						"item_count": 1
 					}
@@ -350,21 +369,24 @@
 					{
 						"name": "Chest",
 						"access_rules": [
-							"$a2_tower"
+							"$a2_tower",
+							"$release_act2"
 						],
 						"item_count": 1
 					},
 					{
 						"name": "Ancient Obol",
 						"access_rules": [
-							"$a2_tower_and_right"
+							"$a2_tower_and_right",
+							"$release_act2"
 						],
 						"item_count": 1
 					},
 					{
 						"name": "Battle Pike Mage",
 						"access_rules": [
-							"$a2_tower"
+							"$a2_tower",
+							"$release_act2"
 						],
 						"item_count": 1
 					}
@@ -380,7 +402,8 @@
 					}
 				],
 				"access_rules": [
-					"$a2_tower"
+					"$a2_tower",
+					"$release_act2"
 				],
 				"sections": [
 					{
@@ -406,7 +429,8 @@
 					{
 						"name": "Boss Magnificus",
 						"access_rules": [
-							"$a2_tower"
+							"$a2_tower",
+							"$release_act2"
 						],
 						"item_count": 1
 					}
@@ -425,7 +449,8 @@
 					{
 						"name": "Tentacle",
 						"access_rules": [
-							"$a2_tower_and_right"
+							"$a2_tower_and_right",
+							"$release_act2"
 						],
 						"item_count": 1
 					}
@@ -441,7 +466,8 @@
 					}
 				],
 				"access_rules": [
-					"$a2_bridge"
+					"$a2_bridge",
+					"$release_act2"
 				],
 				"sections": [
 					{
@@ -472,7 +498,8 @@
 					}
 				],
 				"access_rules": [
-					"$a2_bridge"
+					"$a2_bridge",
+					"$release_act2"
 				],
 				"sections": [
 					{
@@ -502,7 +529,8 @@
 					{
 						"name": "Battle Melter",
 						"access_rules": [
-							"$a2_bridge"
+							"$a2_bridge",
+							"$release_act2"
 						],
 						"item_count": 1
 					}
@@ -518,7 +546,8 @@
 					}
 				],
 				"access_rules": [
-					"$a2_bridge"
+					"$a2_bridge",
+					"$release_act2"
 				],
 				"sections": [
 					{

@@ -9,15 +9,13 @@
 				"stinkbug",
 				"stuntedwolf",
 				"skink",
-				"ant"
-			],
-			[
+				"ant",
 				"greatersmoke",
-				"cagedwolf",
-				"dagger",
-				"magnificuseye"
+				"cagedwolf"
 			],
 			[
+				"dagger",
+				"magnificuseye",
 				"wardrobekey",
 				"hook",
 				"squirreltotem",
@@ -27,15 +25,13 @@
 				"paintingclover",
 				"extracandle",
 				"beefigurine",
-				"filmroll"
-			],
-			[
+				"filmroll",
 				"woodcarvernode",
-				"myconode",
-				"bonealtarnode",
-				"sacstonesnode"
+				"myconode"
 			],
 			[
+				"bonealtarnode",
+				"sacstonesnode",
 				"backpacknode",
 				"campfirenode",
 				"goobertnode",
@@ -45,11 +41,11 @@
 				"priceypelts",
 				"bosstotems",
 				"alltotembattles",
-				"tippedscales"
+				"tippedscales",
+				"moredifficult",
+				"progcandle"
 			],
 			[
-				"moredifficult",
-				"progcandle",
 				"progsquirrel",
 				"proggrizzlies"
 			]
@@ -65,15 +61,13 @@
 				"kraken",
 				"drownedsoul",
 				"salmon",
-				"horn"
-			],
-			[
+				"horn",
 				"camera",
-				"meat",
-				"epitaph",
-				"monocle"
+				"meat"
 			],
 			[
+				"epitaph",
+				"monocle",
 				"femur",
 				"obol",
 				"dockclover",
@@ -91,15 +85,13 @@
 				"lonelywizbot",
 				"fishbot",
 				"ourobot",
-				"holopelt"
-			],
-			[
+				"holopelt",
 				"inspectobattery",
-				"quill",
-				"gemsmodule",
-				"bonelordkey"
+				"quill"
 			],
 			[
+				"gemsmodule",
+				"bonelordkey",
 				"extrabattery",
 				"nanoarmor",
 				"bombremote",
@@ -109,11 +101,11 @@
 				"act3bridgerepair",
 				"bastiongate",
 				"vesselupgrade",
-				"conduitupgrade"
+				"conduitupgrade",
+				"foulshortcut",
+				"filthyshortcut"
 			],
 			[
-				"foulshortcut",
-				"filthyshortcut",
 				"gaudyshortcut"
 			]
 		]
