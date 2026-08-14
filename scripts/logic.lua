@@ -513,11 +513,13 @@ function act2_access()
   return true
 end
 
+-- Beating the act means beating all four Scrybes, so it composes each boss's own
+-- rule rather than restating the items. That is what carries the bridge.
 function beat_act2()
   if not flag("act2on") then
     return true
   end
-  return act2_access() and has_all_epitaphs() and has("camera") and has("meat") and has("monocle")
+  return act2_access() and a2_forest() and a2_grimora() and a2_tower() and a2_bridge()
 end
 
 function act3_access()
