@@ -83,7 +83,6 @@ PAIRS = [
     ("has_mycologists_boss_requirements", "a3_mycologists", None),
     ("has_bone_lord_room_requirements", "a3_bone_lord_room", None),
     ("has_goobert_painting_requirements", "a3_goobert_painting", None),
-    ("has_act3_shop_requirements", "a3_shop", None),
     ("has_ourobot_requirements", "a3_ourobot", None),
     ("has_act1_requirements", "act1_access", None),
     ("beat_act1_requirements", "beat_act1", None),
@@ -94,6 +93,7 @@ PAIRS = [
 ]
 PAIRS += [(f"has_pelts:{n}", "a3_pelts", n) for n in range(1, 6)]
 PAIRS += [(f"has_vessel_upgrade_requirements:{n}", "a3_vessel_upgrade", n) for n in range(1, 5)]
+PAIRS += [(f"has_act3_purchase_requirements:{n}", "a3_purchase", n) for n in range(1, 5)]
 PAIRS += [(f"painting:{n}", f"a1_painting_{n}", None) for n in (1, 2, 3)]
 
 STACKS = {"Tipped Scales Challenge": 3, "More Difficult Challenge": 2, "Progressive Candle": 2,
@@ -148,6 +148,8 @@ def python_rule(rules, name, arg, state):
         return rules.has_pelts(arg)(state)
     if name.startswith("has_vessel_upgrade_requirements:"):
         return rules.has_vessel_upgrade_requirements(arg)(state)
+    if name.startswith("has_act3_purchase_requirements:"):
+        return rules.has_act3_purchase_requirements(arg)(state)
     if name.startswith("painting:"):
         which = name.split(":")[1]
         if rules.act1_randomized:

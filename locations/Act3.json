@@ -225,17 +225,21 @@
 						"y": 677
 					}
 				],
-				"access_rules": [
-					"$a3_shop",
-					"$release_act3"
-				],
 				"sections": [
 					{
 						"name": "Nano Armor Generator",
+						"access_rules": [
+							"$a3_purchase|2",
+							"$release_act3"
+						],
 						"item_count": 1
 					},
 					{
 						"name": "Holo Pelt",
+						"access_rules": [
+							"$a3_purchase|1",
+							"$release_act3"
+						],
 						"item_count": 1
 					}
 				]
@@ -407,7 +411,7 @@
 				"map_locations": [
 					{
 						"map": "Act 3",
-						"x": 1620,
+						"x": 1842,
 						"y": 793
 					}
 				],

@@ -485,14 +485,20 @@ function a3_goobert_painting()
   return a3_bastion() and a3_battery()
 end
 
-function a3_shop()
+-- Everything bought in Act 3 stands in a zone reached long before it can be afforded, so the
+-- price is the gate: one open zone per purchase the run has to pay for, and the dearer the
+-- purchase the more zones. The Bastion earns its place on the list through its battles, being
+-- the one zone with no free pickups of its own.
+function a3_purchase(count)
   local open = count_act3_areas_open({a3_bastion, a3_battery, a3_filthy_corpse_world,
                                       a3_gaudy_gem_land})
-  return open >= 3
+  return open >= (tonumber(count) or 1)
 end
 
+-- The clock's last digit is on a wall in the Rickety Tower that only shows once the $25 Holo
+-- Brush is bought, so it wants Gaudy Gem Land on top of the money for a third purchase.
 function a3_ourobot()
-  return a3_gaudy_gem_land() and a3_shop()
+  return a3_gaudy_gem_land() and a3_purchase(3)
 end
 
 -- --------------------------------------------------------------- Regions ---
