@@ -65,6 +65,10 @@ def pack_rules():
                 gpath = f"@{root['name']}/{group['name']}"
                 grules = tuple(group.get("access_rules", []))
                 for sec in group.get("sections", []):
+                    # A "ref" section is the same section displayed in a second place, so it
+                    # carries no rules of its own and is checked where it is defined.
+                    if "ref" in sec:
+                        continue
                     srules = tuple(sec.get("access_rules", []))
                     out[f"{gpath}/{sec['name']}"] = (rootr, frozenset(grules + srules))
     return out
