@@ -262,22 +262,15 @@
 			},
 			{
 				"name": "Vessel Upgrades",
-				"map_locations": [
-					{
-						"map": "Act 3",
-						"x": 1240,
-						"y": 620
-					}
-				],
-				"visibility_rules": [
-					"$vis_a3_vessel_upgrades"
-				],
 				"sections": [
 					{
 						"name": "Vessel Upgrade 1",
 						"access_rules": [
 							"$a3_vessel_upgrade|1",
 							"$release_act3"
+						],
+						"visibility_rules": [
+							"$vis_a3_vessel_upgrades"
 						],
 						"item_count": 1
 					},
@@ -287,6 +280,9 @@
 							"$a3_vessel_upgrade|2",
 							"$release_act3"
 						],
+						"visibility_rules": [
+							"$vis_a3_vessel_upgrades"
+						],
 						"item_count": 1
 					},
 					{
@@ -294,6 +290,9 @@
 						"access_rules": [
 							"$a3_vessel_upgrade|3",
 							"$release_act3"
+						],
+						"visibility_rules": [
+							"$vis_a3_vessel_upgrades"
 						],
 						"item_count": 1
 					}
@@ -324,8 +323,8 @@
 				"map_locations": [
 					{
 						"map": "Act 3",
-						"x": 1620,
-						"y": 430
+						"x": 1840,
+						"y": 386
 					}
 				],
 				"visibility_rules": [
@@ -399,6 +398,15 @@
 							"$release_act3"
 						],
 						"item_count": 1
+					},
+					{
+						"ref": "Act 3/Vessel Upgrades/Vessel Upgrade 1"
+					},
+					{
+						"ref": "Act 3/Vessel Upgrades/Vessel Upgrade 2"
+					},
+					{
+						"ref": "Act 3/Vessel Upgrades/Vessel Upgrade 3"
 					}
 				]
 			},
@@ -407,8 +415,8 @@
 				"map_locations": [
 					{
 						"map": "Act 3",
-						"x": 1620,
-						"y": 793
+						"x": 1840,
+						"y": 850
 					}
 				],
 				"visibility_rules": [
@@ -502,6 +510,15 @@
 							"$release_act3"
 						],
 						"item_count": 1
+					},
+					{
+						"ref": "Act 3/Vessel Upgrades/Vessel Upgrade 1"
+					},
+					{
+						"ref": "Act 3/Vessel Upgrades/Vessel Upgrade 2"
+					},
+					{
+						"ref": "Act 3/Vessel Upgrades/Vessel Upgrade 3"
 					}
 				]
 			},
@@ -585,6 +602,15 @@
 							"$release_act3"
 						],
 						"item_count": 1
+					},
+					{
+						"ref": "Act 3/Vessel Upgrades/Vessel Upgrade 1"
+					},
+					{
+						"ref": "Act 3/Vessel Upgrades/Vessel Upgrade 2"
+					},
+					{
+						"ref": "Act 3/Vessel Upgrades/Vessel Upgrade 3"
 					}
 				]
 			},
@@ -593,8 +619,8 @@
 				"map_locations": [
 					{
 						"map": "Act 3",
-						"x": 940,
-						"y": 793
+						"x": 602,
+						"y": 850
 					}
 				],
 				"visibility_rules": [
@@ -656,8 +682,8 @@
 				"map_locations": [
 					{
 						"map": "Act 3",
-						"x": 200,
-						"y": 900
+						"x": 86,
+						"y": 965
 					}
 				],
 				"visibility_rules": [
@@ -691,6 +717,15 @@
 							"$release_act3"
 						],
 						"item_count": 1
+					},
+					{
+						"ref": "Act 3/Vessel Upgrades/Vessel Upgrade 1"
+					},
+					{
+						"ref": "Act 3/Vessel Upgrades/Vessel Upgrade 2"
+					},
+					{
+						"ref": "Act 3/Vessel Upgrades/Vessel Upgrade 3"
 					}
 				]
 			}

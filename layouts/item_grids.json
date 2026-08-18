@@ -3,7 +3,7 @@
 		"type": "itemgrid",
 		"h_alignment": "left",
 		"item_margin": "2,2",
-		"item_size": "64,64",
+		"item_size": "48,48",
 		"rows": [
 			[
 				"stinkbug",
@@ -55,7 +55,7 @@
 		"type": "itemgrid",
 		"h_alignment": "left",
 		"item_margin": "2,2",
-		"item_size": "64,64",
+		"item_size": "48,48",
 		"rows": [
 			[
 				"kraken",
@@ -79,7 +79,7 @@
 		"type": "itemgrid",
 		"h_alignment": "left",
 		"item_margin": "2,2",
-		"item_size": "64,64",
+		"item_size": "48,48",
 		"rows": [
 			[
 				"lonelywizbot",
@@ -114,7 +114,7 @@
 		"type": "itemgrid",
 		"h_alignment": "left",
 		"item_margin": "2,2",
-		"item_size": "64,64",
+		"item_size": "48,48",
 		"rows": [
 			[
 				"hammer",

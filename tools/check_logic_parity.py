@@ -283,6 +283,10 @@ def pack_location_exprs():
             for group in root.get("children", []):
                 group_group = parse_level(group.get("access_rules", []))
                 for sec in group.get("sections", []):
+                    # A "ref" section only displays a section defined elsewhere, so it holds no
+                    # rules; the section it points at is compared under its own location.
+                    if "ref" in sec:
+                        continue
                     sec_group = parse_level(sec.get("access_rules", []))
                     path = f"@{root['name']}/{group['name']}/{sec['name']}"
                     out[path] = [g for g in (root_group, group_group, sec_group) if g]
